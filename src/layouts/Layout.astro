@@ -24,21 +24,16 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/images/hero-banner.jpg" />
   </head>
-  <body class="min-h-screen flex flex-col bg-[#f8fafc] text-slate-800 selection:bg-amber-400 selection:text-slate-950">
-    <!-- Top Travel Banner -->
-    <div class="bg-[#022c22] text-amber-300 text-xs py-2 px-4 border-b border-emerald-900/60 text-center tracking-wider flex items-center justify-center gap-3 font-medium">
-      <span>☸️ SLTDA REGISTERED SRI LANKA TOUR GUIDE & SACRED INDIA DAMBADIVA SPECIALIST</span>
-      <span class="hidden md:inline">•</span>
-      <span class="hidden md:inline">DIRECT FLIGHTS ON SRILANKAN AIRLINES & SINHALA MONK LEADERSHIP</span>
-      <span class="hidden md:inline">•</span>
-      <span class="hidden md:inline">WHATSAPP: +94 77 567 8901</span>
+  <body class="min-h-screen flex flex-col bg-[#f7f4ee] text-slate-800 selection:bg-[#d8b978] selection:text-[#0a1d2b]">
+    <div class="bg-[#0a1d2b] text-[#e4c88e] text-[10px] sm:text-xs py-2.5 px-4 text-center tracking-[.12em] uppercase font-medium">
+      Thoughtful travel, from Sri Lanka to the sacred Buddhist circuit <span class="hidden sm:inline text-white/40 px-2">·</span><a href="/contact" class="hidden sm:inline hover:text-white">Speak with our travel team</a>
     </div>
 
     <!-- Main Navigation Header -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-emerald-100 shadow-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <header class="sticky top-0 z-40 bg-[#fdfcf9]/95 backdrop-blur-md border-b border-[#e5dfd4]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[76px] flex items-center justify-between gap-4">
         <!-- Mobile Trigger -->
-        <button id="saumya-menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-emerald-700 focus:outline-hidden" aria-label="Toggle Navigation">
+        <button id="saumya-menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-[#154d45] focus:outline-hidden" aria-label="Toggle Navigation">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -46,24 +41,16 @@ const {
 
         <!-- Brand Identity -->
         <a href="/" class="flex items-center gap-3 group">
-          <img src="/images/logo.jpg" alt="Saumya Tours Sri Lanka" class="w-12 h-12 rounded-full object-cover border-2 border-emerald-700 shadow-sm group-hover:rotate-3 transition-transform" />
+          <img src="/images/logo.jpg" alt="Saumya Tours Sri Lanka" class="w-12 h-12 rounded-full object-cover ring-1 ring-[#b88b45]/60 group-hover:rotate-3 transition-transform" />
           <div class="flex flex-col">
-            <span class="font-heading text-xl sm:text-2xl font-bold tracking-wider text-emerald-950 group-hover:text-emerald-700 transition-colors">SAUMYA TOURS</span>
-            <span class="text-[9px] tracking-[0.2em] text-amber-700 uppercase font-bold">Sri Lanka & India Dambadiva</span>
+            <span class="font-heading text-xl sm:text-2xl font-bold tracking-wide text-[#0a1d2b] group-hover:text-[#154d45] transition-colors">SAUMYA TOURS</span>
+            <span class="text-[9px] tracking-[0.17em] text-[#876a3c] uppercase font-bold">Luxury travel & pilgrimage</span>
           </div>
         </a>
 
         <!-- Desktop Links -->
-        <nav class="hidden lg:flex items-center space-x-7 text-sm font-semibold text-slate-700">
-          <a href="/" class="text-emerald-950 hover:text-emerald-700 transition-colors">Home</a>
-          <a href="/tours?category=sri-lanka-tours" class="hover:text-emerald-700 transition-colors">Sri Lanka Tours</a>
-          <a href="/tours?category=dambadiva-pilgrimages" class="text-emerald-800 bg-amber-100/70 hover:bg-amber-200/80 px-3 py-1 rounded-full border border-amber-300 transition-colors flex items-center gap-1.5">
-            <span>☸️</span> India Dambadiva
-          </a>
-          <a href="/tours?category=day-excursions" class="hover:text-emerald-700 transition-colors">Safaris & Day Trips</a>
-          <a href="/tours" class="hover:text-emerald-700 transition-colors">All Packages</a>
-          <a href="/about" class="hover:text-emerald-700 transition-colors">About Us</a>
-          <a href="/contact" class="hover:text-emerald-700 transition-colors">Contact & Booking</a>
+        <nav class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[.08em] font-bold text-slate-600">
+          <a href="/" class="text-[#0a1d2b] hover:text-[#154d45] transition-colors">Home</a><a href="/tours?category=sri-lanka-tours" class="hover:text-[#154d45] transition-colors">Sri Lanka</a><a href="/tours?category=dambadiva-pilgrimages" class="hover:text-[#154d45] transition-colors">Dambadiva</a><a href="/tours?category=day-excursions" class="hover:text-[#154d45] transition-colors">Experiences</a><a href="/about" class="hover:text-[#154d45] transition-colors">Our story</a>
         </nav>
 
         <!-- CTA Consultation Button -->
@@ -71,7 +58,7 @@ const {
           <a 
             href="#booking-modal"
             onclick="openBookingModal('General Inquiry')"
-            class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-800 to-teal-700 hover:from-emerald-700 hover:to-teal-600 text-amber-200 font-bold text-xs uppercase tracking-wider rounded-lg shadow-md transition-all hover:scale-102"
+            class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 bg-[#154d45] hover:bg-[#0f4039] text-white font-bold text-[10px] uppercase tracking-[.1em] transition-all"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -82,7 +69,7 @@ const {
             href="https://wa.me/94775678901?text=Hello%20Saumya%20Tours,%20I%20would%20like%20to%20inquire%20about%20your%20tours"
             target="_blank"
             rel="noopener"
-            class="p-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full transition-colors shadow-sm"
+            class="p-2.5 bg-[#1e7865] hover:bg-[#154d45] text-white rounded-full transition-colors"
             aria-label="WhatsApp Contact"
           >
             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -93,7 +80,7 @@ const {
       </div>
 
       <!-- Mobile Dropdown -->
-      <div id="saumya-menu" class="hidden lg:hidden bg-white border-b border-emerald-100 px-6 py-4 space-y-3 text-sm">
+      <div id="saumya-menu" class="hidden lg:hidden bg-[#fdfcf9] border-b border-[#e5dfd4] px-6 py-4 space-y-3 text-sm">
         <a href="/" class="block py-1 text-slate-900 font-bold">Home</a>
         <a href="/tours?category=sri-lanka-tours" class="block py-1 text-slate-700">Sri Lanka Inbound Tours</a>
         <a href="/tours?category=dambadiva-pilgrimages" class="block py-1 text-emerald-800 font-bold">☸️ India Dambadiva Pilgrimages</a>

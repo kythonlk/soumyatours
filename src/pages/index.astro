@@ -9,179 +9,24 @@ const sriLankaTours = tours.filter(t => t.country === 'Sri Lanka');
 ---
 
 <Layout>
-  <!-- Majestic Travel Hero Section -->
-  <section class="relative bg-[#022c22] text-white min-h-[620px] lg:min-h-[680px] flex items-center overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <img 
-        src="/images/hero-banner.jpg" 
-        alt="Saumya Tours Sri Lanka and India Dambadiva" 
-        class="w-full h-full object-cover object-center filter brightness-90"
-      />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#022c22]/95 via-[#022c22]/70 to-transparent"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-[#022c22] via-transparent to-transparent"></div>
-    </div>
-
-    <!-- Hero Content -->
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div class="max-w-2xl space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-900/80 border border-emerald-500/40 text-amber-300 text-xs font-semibold">
-          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-          2026 PILGRIMAGE & HOLIDAY RESERVATIONS OPEN
-        </div>
-
-        <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-          Journeys of Wonder, <br />
-          <span class="gold-travel-text">Pilgrimages of Faith</span>
-        </h1>
-
-        <p class="text-sm sm:text-base text-emerald-100/90 leading-relaxed font-light max-w-xl">
-          Experience Sri Lanka’s magical ancient kingdoms, hill country tea estates, and wild leopard safaris — and embark on sacred, life-enriching <strong>India Dambadiva Buddhist Pilgrimages</strong> directly from Colombo with venerated Sinhala monk guidance.
-        </p>
-
-        <div class="pt-4 flex flex-wrap gap-4">
-          <a 
-            href="#dambadiva-section" 
-            class="px-8 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-xl transition-all hover:scale-102 flex items-center gap-2"
-          >
-            <span>☸️</span> India Dambadiva Tours
-          </a>
-          <a 
-            href="#sri-lanka-section" 
-            class="px-8 py-3.5 bg-emerald-950/80 hover:bg-emerald-900 text-amber-300 border border-emerald-500/40 font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl backdrop-blur-xs transition-all hover:scale-102"
-          >
-            Sri Lanka Inbound Tours
-          </a>
-        </div>
-
-        <!-- Pillar Stats -->
-        <div class="pt-8 border-t border-emerald-800/80 grid grid-cols-3 gap-4 text-xs text-emerald-200">
-          <div>
-            <div class="text-white font-bold text-base font-heading">15+ Years</div>
-            <div class="text-[11px] text-amber-300">Pilgrimage Leadership</div>
-          </div>
-          <div>
-            <div class="text-white font-bold text-base font-heading">12,000+</div>
-            <div class="text-[11px] text-amber-300">Blessed Pilgrims Guided</div>
-          </div>
-          <div>
-            <div class="text-white font-bold text-base font-heading">100% Full Board</div>
-            <div class="text-[11px] text-amber-300">Colombo Direct Flights</div>
-          </div>
-        </div>
+  <section class="bg-[#0a1d2b] text-white overflow-hidden">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-[1.02fr_.98fr] min-h-[660px]">
+      <div class="px-5 sm:px-8 lg:px-12 xl:px-4 py-16 lg:py-24 flex flex-col justify-center relative z-10">
+        <p class="eyebrow gold-rule">Sri Lanka · India · Nepal</p>
+        <h1 class="mt-6 max-w-xl font-heading text-[2.7rem] sm:text-6xl lg:text-[4.35rem] leading-[1.04] tracking-[-.035em]">Travel with <em class="text-[#d8b978] font-heading">meaning.</em></h1>
+        <p class="mt-7 max-w-lg text-base leading-7 text-slate-300">Considered journeys through Sri Lanka and the sacred Buddhist circuit—planned with warmth, local knowledge and care for every traveller.</p>
+        <div class="mt-9 flex flex-wrap gap-3"><a href="#dambadiva-section" class="button-primary">Explore pilgrimages <span aria-hidden="true">→</span></a><a href="#sri-lanka-section" class="button-outline">Discover Sri Lanka</a></div>
+        <dl class="mt-16 pt-7 border-t border-white/15 grid grid-cols-3 max-w-xl gap-4"><div><dt class="font-heading text-2xl text-[#d8b978]">One</dt><dd class="mt-1 text-[10px] sm:text-xs text-slate-400 uppercase tracking-[.12em] leading-4">Thoughtful point of contact</dd></div><div><dt class="font-heading text-2xl text-[#d8b978]">Local</dt><dd class="mt-1 text-[10px] sm:text-xs text-slate-400 uppercase tracking-[.12em] leading-4">Knowledge, every mile</dd></div><div><dt class="font-heading text-2xl text-[#d8b978]">Your pace</dt><dd class="mt-1 text-[10px] sm:text-xs text-slate-400 uppercase tracking-[.12em] leading-4">Made to feel personal</dd></div></dl>
       </div>
+      <div class="relative min-h-[420px] lg:min-h-0 border-l border-white/10"><img src="/images/hero-banner.jpg" alt="Sigiriya and Mahabodhi Temple" class="absolute inset-0 w-full h-full object-cover object-[54%_20%] opacity-90" /><div class="absolute inset-0 bg-gradient-to-t from-[#0a1d2b]/75 via-transparent to-transparent"></div><div class="absolute bottom-0 left-0 right-0 p-6 sm:p-9 flex justify-between items-end text-white"><div><p class="eyebrow text-[#e1c58e]">A journey in two landscapes</p><p class="mt-2 font-heading text-xl">Wonder & devotion</p></div><span class="w-10 h-10 rounded-full border border-white/50 grid place-items-center text-lg">↙</span></div></div>
     </div>
   </section>
 
-  <!-- India Dambadiva Highlight Hub -->
-  <section id="dambadiva-section" class="py-16 bg-[#042f2e] text-white relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-        <div>
-          <span class="text-xs font-bold uppercase tracking-[0.25em] text-amber-400 font-mono">// SACRED PILGRIMAGES FROM SRI LANKA</span>
-          <h2 class="font-heading text-3xl sm:text-4xl font-bold mt-1 text-white">India Dambadiva Sacred Circuit</h2>
-          <p class="text-xs sm:text-sm text-emerald-200/80 mt-2 max-w-2xl font-light">
-            Worship at Bodh Gaya, Sarnath, Kushinagar, Rajgir, Nalanda, and Lumbini. Complete peace of mind with Sinhala-speaking Buddhist monks, Colombo return airfare, and 4-star AC hotel stays.
-          </p>
-        </div>
-        <a href="/tours?category=dambadiva-pilgrimages" class="text-xs font-bold uppercase tracking-wider text-amber-400 hover:underline">
-          View All Dambadiva Dates →
-        </a>
-      </div>
+  <section class="bg-[#ede7dc] border-y border-[#d8cebc]"><div class="max-w-7xl mx-auto px-5 sm:px-8 py-5 grid sm:grid-cols-3 gap-4 text-sm text-[#334744]"><p class="flex gap-3 items-center"><span class="text-[#b88b45] text-lg">01</span> Personal itinerary planning</p><p class="flex gap-3 items-center"><span class="text-[#b88b45] text-lg">02</span> Pilgrimages & island escapes</p><p class="flex gap-3 items-center"><span class="text-[#b88b45] text-lg">03</span> Support from inquiry to return</p></div></section>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {dambadivaTours.map(tour => (
-          <TourCard tour={tour} />
-        ))}
-      </div>
+  <section id="dambadiva-section" class="py-20 sm:py-28 bg-[#f7f4ee]"><div class="max-w-7xl mx-auto px-5 sm:px-8"><div class="grid lg:grid-cols-[.75fr_1.25fr] gap-10 lg:gap-16 items-end mb-12"><div><p class="eyebrow gold-rule">Sacred journeys</p><h2 class="section-heading mt-5">Dambadiva pilgrimages</h2></div><div class="lg:pb-1"><p class="text-[#52625e] text-base leading-7 max-w-2xl">Walk the Buddhist circuit with space for reflection and the confidence of a well-considered itinerary. We take care of the practical details so the journey can remain the focus.</p><a href="/tours?category=dambadiva-pilgrimages" class="mt-5 inline-block text-xs font-bold tracking-[.12em] uppercase text-[#154d45] border-b border-[#b88b45] pb-1">View pilgrimage journeys →</a></div></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-7">{dambadivaTours.map(tour => <TourCard tour={tour} />)}</div></div></section>
 
-      <!-- Dambadiva Pilgrimage Inclusions Strip -->
-      <div class="mt-12 p-6 rounded-2xl bg-[#022c22] border border-emerald-700/60 grid grid-cols-1 md:grid-cols-4 gap-6 text-xs text-emerald-100">
-        <div class="space-y-1">
-          <div class="text-amber-300 font-bold text-sm">✈️ Direct Flights</div>
-          <p>SriLankan Airlines return flights CMB - GAYA with luggage included.</p>
-        </div>
-        <div class="space-y-1">
-          <div class="text-amber-300 font-bold text-sm">🍲 3 Daily Sri Lankan Meals</div>
-          <p>Freshly cooked traditional Sri Lankan buffet prepared by our accompanying chefs.</p>
-        </div>
-        <div class="space-y-1">
-          <div class="text-amber-300 font-bold text-sm">☸️ Venerable Sinhala Monks</div>
-          <p>Deep spiritual commentary, daily Dhamma discussions, and Bodhi Pooja ceremonies.</p>
-        </div>
-        <div class="space-y-1">
-          <div class="text-amber-300 font-bold text-sm">🚌 Luxury AC Coaches</div>
-          <p>Comfortable Mercedes-Benz tourist coaches with cold water & fruit service.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section id="sri-lanka-section" class="bg-white py-20 sm:py-28"><div class="max-w-7xl mx-auto px-5 sm:px-8"><div class="flex flex-col md:flex-row justify-between md:items-end gap-6 mb-12 border-b border-slate-200 pb-8"><div><p class="eyebrow gold-rule">Island stories</p><h2 class="section-heading mt-5">Sri Lanka, unhurried.</h2><p class="mt-4 max-w-xl text-[#52625e] leading-7">From ancient cities to the tea country and southern coast, experience an island that rewards taking your time.</p></div><a href="/tours?category=sri-lanka-tours" class="text-xs font-bold tracking-[.12em] uppercase text-[#154d45] border-b border-[#b88b45] pb-1 whitespace-nowrap">See Sri Lanka tours →</a></div><div class="grid grid-cols-1 md:grid-cols-2 gap-7">{sriLankaTours.map(tour => <TourCard tour={tour} />)}</div></div></section>
 
-  <!-- Sri Lanka Guided Tours Section -->
-  <section id="sri-lanka-section" class="py-16 bg-[#f8fafc]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-        <div>
-          <span class="text-xs font-bold uppercase tracking-[0.25em] text-emerald-800 font-mono">// INBOUND EXPERIENCES</span>
-          <h2 class="font-heading text-3xl font-bold text-slate-900 mt-1">Explore Sri Lanka</h2>
-          <p class="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl font-light">
-            From the monumental rock palace of Sigiriya to the misty tea country of Ella and leopard safaris in Yala.
-          </p>
-        </div>
-        <a href="/tours?category=sri-lanka-tours" class="text-xs font-bold uppercase tracking-wider text-emerald-800 hover:underline">
-          Browse All Sri Lanka Tours →
-        </a>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {sriLankaTours.map(tour => (
-          <TourCard tour={tour} />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Traveler Testimonials -->
-  <section class="py-16 bg-white border-t border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-bold uppercase tracking-[0.25em] text-amber-700 font-mono">// PILGRIM & TRAVELER REVIEWS</span>
-        <h2 class="font-heading text-3xl font-bold text-slate-900 mt-2">Blessed Journeys & Memories</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-        <div class="p-6 bg-[#f8fafc] rounded-2xl border border-slate-200 space-y-3">
-          <div class="text-amber-500 text-sm">★★★★★</div>
-          <p class="text-slate-600 italic leading-relaxed">
-            "My mother (74 years) and I joined the 12-Day Dambadiva pilgrimage. Saumya Tours took wonderful care of our elders. The Sinhala food was delicious, and worshiping under the Bodhi Tree at Bodh Gaya was life-changing."
-          </p>
-          <div class="pt-2 border-t border-slate-200 font-semibold text-slate-800 flex justify-between">
-            <span>Karunaratne Alwis</span>
-            <span class="text-slate-400 font-normal">Nugegoda, Colombo</span>
-          </div>
-        </div>
-
-        <div class="p-6 bg-[#f8fafc] rounded-2xl border border-slate-200 space-y-3">
-          <div class="text-amber-500 text-sm">★★★★★</div>
-          <p class="text-slate-600 italic leading-relaxed">
-            "We did the 7-day Sri Lanka highlights tour. The private van was spotless, and our chauffeur guide knew every hidden viewpoint in Sigiriya and Ella. Outstanding service!"
-          </p>
-          <div class="pt-2 border-t border-slate-200 font-semibold text-slate-800 flex justify-between">
-            <span>David & Claire Miller</span>
-            <span class="text-slate-400 font-normal">Melbourne, Australia</span>
-          </div>
-        </div>
-
-        <div class="p-6 bg-[#f8fafc] rounded-2xl border border-slate-200 space-y-3">
-          <div class="text-amber-500 text-sm">★★★★★</div>
-          <p class="text-slate-600 italic leading-relaxed">
-            "The Yala safari was breathtaking! We spotted 2 leopards and a herd of elephants within two hours. Saumya Tours arranged the top tracker in the park."
-          </p>
-          <div class="pt-2 border-t border-slate-200 font-semibold text-slate-800 flex justify-between">
-            <span>Nalaka Ranasinghe</span>
-            <span class="text-slate-400 font-normal">Kandy</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="bg-[#154d45] text-white"><div class="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-20 grid md:grid-cols-[1fr_auto] gap-10 items-center"><div><p class="eyebrow text-[#d8b978]">Begin with a conversation</p><h2 class="font-heading text-3xl sm:text-4xl mt-4">Tell us how you want to travel.</h2><p class="mt-4 text-emerald-100 max-w-xl leading-7">Whether you are planning a pilgrimage, a family holiday, or a private island journey, we will help shape the right route.</p></div><a href="/contact" class="button-primary self-start md:self-auto">Plan your journey <span aria-hidden="true">→</span></a></div></section>
 </Layout>

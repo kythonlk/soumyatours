@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TourCard from '../components/TourCard.astro';
+import { getTours } from '../lib/api';
+
+const allTours = await getTours();
+const dambadivaPackages = allTours.filter(t => t.country === 'India (Dambadiva)');
+---
+
+<Layout 
+  title="Sacred India Dambadiva Buddhist Pilgrimage Packages 2026 | Saumya Tours"
+  description="All-inclusive sacred Buddhist pilgrimage packages to India and Nepal from Colombo. Direct flights, Sinhala monk spiritual guidance, 4-star AC hotels, and authentic Sri Lankan meals."
+>
+  <!-- Pilgrimage Hero Banner -->
+  <div class="relative bg-[#022c22] text-white min-h-[480px] flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="/images/dambadiva.jpg" 
+        alt="Sacred Dambadiva Buddhist Pilgrimages" 
+        class="w-full h-full object-cover object-center filter brightness-65"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-[#022c22]/95 via-[#022c22]/75 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#022c22] via-transparent to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="max-w-2xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-semibold">
+          <span>☸️</span> SACRED BUDDHIST CHAR DHAM CIRCUIT 2026
+        </div>
+        <h1 class="font-heading text-3xl sm:text-5xl font-bold text-white leading-tight">
+          Walk in the Holy Footsteps of <span class="gold-travel-text">Lord Buddha</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-emerald-100/90 leading-relaxed font-light">
+          Join thousands of Sri Lankan devotees on the spiritual journey of a lifetime. Experience revered worship at Bodh Gaya, Sarnath, Kushinagar, Lumbini, Rajgir, and Nalanda with devoted Sinhala monk leadership and compassionate full-board Sri Lankan hospitality.
+        </p>
+        <div class="pt-2 flex flex-wrap gap-3 text-xs">
+          <span class="bg-emerald-900/80 px-3 py-1.5 rounded-lg border border-emerald-600/40 text-amber-200 font-medium">✈️ Colombo Direct Flights</span>
+          <span class="bg-emerald-900/80 px-3 py-1.5 rounded-lg border border-emerald-600/40 text-amber-200 font-medium">🍛 Authentic Sri Lankan Meals</span>
+          <span class="bg-emerald-900/80 px-3 py-1.5 rounded-lg border border-emerald-600/40 text-amber-200 font-medium">🛏️ 4-Star AC Hotels</span>
+          <span class="bg-emerald-900/80 px-3 py-1.5 rounded-lg border border-emerald-600/40 text-amber-200 font-medium">📄 Indian Visa Handling</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Four Sacred Sites (Char Dham) Overview -->
+  <section class="py-12 bg-white border-b border-emerald-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto space-y-2 mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-700 font-mono">// FOUR SACRED SHRINES</span>
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-emerald-950">The Sacred Buddhist Circuit</h2>
+        <p class="text-xs sm:text-sm text-slate-600">The four holy pilgrimage sites recommended by the Blessed One for devotees to visit with reverence and serene joy.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-200/70 space-y-2">
+          <div class="text-2xl">🌱</div>
+          <h3 class="font-heading text-sm font-bold text-emerald-950">1. Lumbini (Nepal)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The sacred birthplace of Prince Siddhartha. Worship at Maya Devi Temple, sacred bathing pond, and King Ashoka pillar.</p>
+        </div>
+        <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-200/70 space-y-2">
+          <div class="text-2xl">🧘</div>
+          <h3 class="font-heading text-sm font-bold text-emerald-950">2. Bodh Gaya (Bihar)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The holy ground of Supreme Enlightenment. Meditate beneath the sacred Bodhi Tree and the sacred Vajrasana (Diamond Throne).</p>
+        </div>
+        <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-200/70 space-y-2">
+          <div class="text-2xl">☸️</div>
+          <h3 class="font-heading text-sm font-bold text-emerald-950">3. Sarnath (Varanasi)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The Deer Park where the First Sermon (Dhammacakkappavattana Sutta) was expounded. Visit the majestic Damekh Stupa.</p>
+        </div>
+        <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-200/70 space-y-2">
+          <div class="text-2xl">🪷</div>
+          <h3 class="font-heading text-sm font-bold text-emerald-950">4. Kushinagar (UP)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The sacred passing into Maha Parinirvana. Worship the recumbent gilded Buddha statue and the Ramabhar cremation stupa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Available Packages Grid -->
+  <section class="py-14 bg-[#f8fafc]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-emerald-800 font-mono">// ALL-INCLUSIVE ITINERARIES</span>
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-emerald-950 mt-1">Dambadiva Pilgrimage Packages</h2>
+          <p class="text-xs text-slate-500 mt-1">Direct Colombo departures scheduled every month with full monk leadership</p>
+        </div>
+        <a 
+          href="#booking-modal"
+          onclick="openBookingModal('12-Day Dambadiva Pilgrimage')"
+          class="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-800 hover:bg-emerald-700 text-amber-200 font-bold text-xs uppercase tracking-wider rounded-lg shadow-sm transition-colors"
+        >
+          Check 2026 Departure Dates
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {dambadivaPackages.map(tour => (
+          <TourCard tour={tour} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What Saumya Tours Guarantees -->
+  <section class="py-14 bg-[#022c22] text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 font-mono">// DEVOTEE CARE & COMFORT</span>
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold">Why Sri Lankan Devotees Choose Saumya Tours</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+        <div class="bg-emerald-950/80 p-6 rounded-xl border border-emerald-700/50 space-y-3">
+          <div class="text-amber-400 text-xl font-bold">🙏 Venerable Sinhala Leadership</div>
+          <p class="text-emerald-100/80 leading-relaxed">
+            Senior Sri Lankan Buddhist monks accompany every single group to conduct daily morning & evening pirith chanting, Gilampasa poojas, and provide deep historical dhamma explanations at each sacred monument.
+          </p>
+        </div>
+        <div class="bg-emerald-950/80 p-6 rounded-xl border border-emerald-700/50 space-y-3">
+          <div class="text-amber-400 text-xl font-bold">🍚 Authentic Sri Lankan Kitchen</div>
+          <p class="text-emerald-100/80 leading-relaxed">
+            Our own dedicated Sri Lankan cooking staff accompany each pilgrimage to prepare fresh Sri Lankan red rice, dhal, pol sambol, curries, and wholesome herbal teas daily, ensuring complete digestive comfort.
+          </p>
+        </div>
+        <div class="bg-emerald-950/80 p-6 rounded-xl border border-emerald-700/50 space-y-3">
+          <div class="text-amber-400 text-xl font-bold">♿ Senior Citizen Wheelchair Care</div>
+          <p class="text-emerald-100/80 leading-relaxed">
+            We provide dedicated assistants and wheelchairs for elderly parents and devotees with mobility challenges across all temple grounds, ensuring peaceful worship with zero physical distress.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

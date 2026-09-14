@@ -1,49 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 @import "tailwindcss";
 
 @layer base {
   :root {
-    --font-heading: 'Cinzel', serif;
-    --font-sans: 'Outfit', sans-serif;
+    --ink: #0a1d2b;
+    --ink-soft: #142c3b;
+    --gold: #b88b45;
+    --gold-light: #d8b978;
+    --paper: #f7f4ee;
+    --forest: #154d45;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-sans: 'DM Sans', Arial, sans-serif;
   }
+
+  html { scroll-behavior: smooth; }
 
   body {
     font-family: var(--font-sans);
-    color: #1e293b;
-    background-color: #f8fafc;
+    color: #26363a;
+    background-color: var(--paper);
     overflow-x: hidden;
   }
 
-  h1, h2, h3, .font-heading {
-    font-family: var(--font-heading);
-    letter-spacing: 0.02em;
-  }
+  h1, h2, h3, .font-heading { font-family: var(--font-heading); }
+  a, button { -webkit-tap-highlight-color: transparent; }
 }
 
-.gold-travel-text {
-  background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #b45309 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.eyebrow {
+  color: var(--gold);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
 }
 
-.teal-gradient-bg {
-  background: linear-gradient(135deg, #042f2e 0%, #064e3b 50%, #0f172a 100%);
+.gold-rule::before {
+  background: var(--gold);
+  content: '';
+  display: inline-block;
+  height: 1px;
+  margin: 0 .75rem .2rem 0;
+  width: 2.5rem;
 }
 
-.glass-travel {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.button-primary {
+  align-items: center; background: var(--gold); color: var(--ink); display: inline-flex;
+  font-size: .73rem; font-weight: 700; gap: .65rem; justify-content: center;
+  letter-spacing: .1em; padding: .95rem 1.35rem; text-transform: uppercase;
+  transition: background .2s ease, transform .2s ease;
 }
+.button-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+.button-outline {
+  align-items: center; border: 1px solid rgba(255,255,255,.48); color: white; display: inline-flex;
+  font-size: .73rem; font-weight: 700; justify-content: center; letter-spacing: .1em;
+  padding: .9rem 1.3rem; text-transform: uppercase; transition: background .2s ease, border-color .2s ease;
+}
+.button-outline:hover { background: rgba(255,255,255,.1); border-color: white; }
+
+.section-heading { color: var(--ink); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; }
 
 /* Custom travel scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--paper);
 }
 ::-webkit-scrollbar-thumb {
-  background: #0d9488;
-  border-radius: 4px;
+  background: #6d817a;
 }
