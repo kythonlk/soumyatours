@@ -59,3 +59,5 @@
 - Playwright version's expected browser may not be installed; TEST_BROWSER_EXECUTABLE selects an installed Chromium. Browser tests need elevated local-network/process permission in this environment.
 - When checking images, force lazy images eager or scroll through each; a full-page screenshot alone can leave offscreen images unrequested. Disable Astro dev toolbar or use the production preview for accessibility tests.
 - Use Playwright `toHaveTitle` for document titles; head title text locator produced empty text despite a valid browser title in this environment.
+- Final verification: all 8 Playwright tests passed (all published content at 360/768/1440px, image loading, WCAG A/AA axe checks, menus/dialog, tour filtering/history, inquiry handoff, fleet selection, and 12-guide search/checklists). Conditional SITE_URL sitemap/robots generation passed with an isolated fixture. Production domain remains unset intentionally.
+- Teardown: stopped the owned production preview at port 3005 after tests; visual review completed on desktop and mobile screenshots in /tmp/saumya-*.png.
