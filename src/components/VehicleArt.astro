@@ -1,0 +1,9 @@
+---
+interface Props { kind: string; name: string }
+const { kind, name } = Astro.props;
+---
+<div class:list={['vehicle-art',kind==='van'?'van-art':'car-art']}>
+<svg viewBox="0 0 640 280" role="img" aria-label={`${name} representative illustration`}>
+  <ellipse cx="320" cy="233" rx="247" ry="14" fill="#32180e" opacity=".1" />
+  {kind==='van' ? <g stroke="#32180e" stroke-width="3" stroke-linejoin="round"><path d="M76 90Q76 60 108 60H440Q467 60 482 90L543 166V214H74Z" fill="#f7f4ea" /><path d="M95 81H425V143H95Z" fill="#8aafa8" /><path d="M443 83H460L508 143H443Z" fill="#8aafa8" /><path d="M208 81V143M319 81V143M434 64V207" fill="none" /><path d="M83 164H528" stroke="#ed7900" stroke-width="9" /><path d="M319 147V207M95 196H530" fill="none" /><path d="M337 160H359M453 158H474" stroke-width="5" /><rect x="505" y="174" width="29" height="14" rx="4" fill="#ffd34e" /><circle cx="166" cy="213" r="33" fill="#32180e" /><circle cx="166" cy="213" r="16" fill="#d5d2c6" /><circle cx="456" cy="213" r="33" fill="#32180e" /><circle cx="456" cy="213" r="16" fill="#d5d2c6" /></g> : <g stroke="#32180e" stroke-width="3" stroke-linejoin="round"><path d="M65 174L151 154L217 93Q235 79 272 79H355Q385 79 407 99L468 149L549 166Q575 172 575 197V218H65Z" fill="#454844" /><path d="M177 149L232 98H348Q374 98 391 113L435 149Z" fill="#b3d3cb" /><path d="M299 97V150M310 156V208M168 157V204M460 155V205" fill="none" /><path d="M83 182H133M511 180H561" stroke="#fff0ba" stroke-width="8" /><path d="M82 204H561" stroke="#ccc6ae" /><path d="M324 164H346M195 164H217" stroke="#d6c7af" stroke-width="4" /><circle cx="177" cy="213" r="34" fill="#231a14" /><circle cx="177" cy="213" r="18" fill="#bdbdb5" /><circle cx="469" cy="213" r="34" fill="#231a14" /><circle cx="469" cy="213" r="18" fill="#bdbdb5" /></g>}
+</svg><span>Representative illustration</span></div>

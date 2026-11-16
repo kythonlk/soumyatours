@@ -1,272 +1,45 @@
 ---
 import '../styles/global.css';
-
-interface Props {
-  title?: string;
-  description?: string;
-}
-
-const { 
-  title = "Saumya Tours | Sri Lanka Guided Tours & Sacred India Dambadiva Pilgrimages", 
-  description = "Premier Sri Lanka tour guide and authorized India Dambadiva Buddhist pilgrimage operator from Sri Lanka. Colombo direct flights, 4-star hotels, Sinhala guide leadership & all-inclusive packages." 
-} = Astro.props;
+import InquiryForm from '../components/InquiryForm.astro';
+import { site, whatsappLink } from '../lib/site';
+interface Props { title?: string; description?: string; noindex?: boolean }
+const { title = 'Local vehicle hire in Pita Kotte & Dambadiva guides | Saumya Tours', description = 'Local vehicle hire from Pita Kotte: Nissan Caravan and Mercedes-Benz AMG C-Class. Plan Colombo transfers, Sri Lanka journeys, and Dambadiva pilgrimages with Saumya Tours.', noindex = false } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const socialImage = Astro.site ? new URL('/images/hero-banner.jpg', Astro.site).href : '/images/hero-banner.jpg';
+const links = [{href:'/local-hires',title:'Local hires'}, {href:'/fleet',title:'Our fleet'}, {href:'/guides',title:'Guides'}, {href:'/dambadiva-tours',title:'Dambadiva'}, {href:'/news',title:'Travel notes'}, {href:'/contact',title:'Contact'}];
+const businessSchema={'@context':'https://schema.org','@type':'TravelAgency',name:site.name,description:'Local vehicle hire from Pita Kotte, Sri Lanka journeys, and Dambadiva pilgrimage planning.',address:{'@type':'PostalAddress',streetAddress:'82/4, 3rd Baptist Lane, Beddagane',addressLocality:'Pita Kotte',addressCountry:'LK'},telephone:site.phone,email:site.email,areaServed:[{'@type':'Country',name:'Sri Lanka'}],...(Astro.site?{url:Astro.site.href,logo:new URL('/images/saumya-logo-v2.png',Astro.site).href}:{})};
 ---
-
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/jpeg" href="/images/logo.jpg" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content="/images/hero-banner.jpg" />
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title><meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <meta name="theme-color" content="#ff7900" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-v2.png" /><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-v2.png" />
+    <meta property="og:type" content="website" /><meta property="og:site_name" content={site.name} /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:image" content={socialImage} /><meta property="og:image:alt" content="Sri Lanka and sacred Buddhist landmarks" />{canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={socialImage} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script type="application/ld+json" set:html={JSON.stringify(businessSchema).replace(/</g, '\\u003c')} />
+    <slot name="head" />
   </head>
-  <body class="min-h-screen flex flex-col bg-[#f7f4ee] text-slate-800 selection:bg-[#d8b978] selection:text-[#0a1d2b]">
-    <div class="bg-[#0a1d2b] text-[#e4c88e] text-[10px] sm:text-xs py-2.5 px-4 text-center tracking-[.12em] uppercase font-medium">
-      Thoughtful travel, from Sri Lanka to the sacred Buddhist circuit <span class="hidden sm:inline text-white/40 px-2">·</span><a href="/contact" class="hidden sm:inline hover:text-white">Speak with our travel team</a>
-    </div>
-
-    <!-- Main Navigation Header -->
-    <header class="sticky top-0 z-40 bg-[#fdfcf9]/95 backdrop-blur-md border-b border-[#e5dfd4]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[76px] flex items-center justify-between gap-4">
-        <!-- Mobile Trigger -->
-        <button id="saumya-menu-btn" class="lg:hidden p-2 text-slate-700 hover:text-[#154d45] focus:outline-hidden" aria-label="Toggle Navigation">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-
-        <!-- Brand Identity -->
-        <a href="/" class="flex items-center gap-3 group">
-          <img src="/images/logo.jpg" alt="Saumya Tours Sri Lanka" class="w-12 h-12 rounded-full object-cover ring-1 ring-[#b88b45]/60 group-hover:rotate-3 transition-transform" />
-          <div class="flex flex-col">
-            <span class="font-heading text-xl sm:text-2xl font-bold tracking-wide text-[#0a1d2b] group-hover:text-[#154d45] transition-colors">SAUMYA TOURS</span>
-            <span class="text-[9px] tracking-[0.17em] text-[#876a3c] uppercase font-bold">Luxury travel & pilgrimage</span>
-          </div>
-        </a>
-
-        <!-- Desktop Links -->
-        <nav class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[.08em] font-bold text-slate-600">
-          <a href="/" class="text-[#0a1d2b] hover:text-[#154d45] transition-colors">Home</a><a href="/tours?category=sri-lanka-tours" class="hover:text-[#154d45] transition-colors">Sri Lanka</a><a href="/tours?category=dambadiva-pilgrimages" class="hover:text-[#154d45] transition-colors">Dambadiva</a><a href="/tours?category=day-excursions" class="hover:text-[#154d45] transition-colors">Experiences</a><a href="/about" class="hover:text-[#154d45] transition-colors">Our story</a>
-        </nav>
-
-        <!-- CTA Consultation Button -->
-        <div class="flex items-center gap-3">
-          <a 
-            href="#booking-modal"
-            onclick="openBookingModal('General Inquiry')"
-            class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 bg-[#154d45] hover:bg-[#0f4039] text-white font-bold text-[10px] uppercase tracking-[.1em] transition-all"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            Plan My Trip
-          </a>
-          <a 
-            href="https://wa.me/94775678901?text=Hello%20Saumya%20Tours,%20I%20would%20like%20to%20inquire%20about%20your%20tours"
-            target="_blank"
-            rel="noopener"
-            class="p-2.5 bg-[#1e7865] hover:bg-[#154d45] text-white rounded-full transition-colors"
-            aria-label="WhatsApp Contact"
-          >
-            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-            </svg>
-          </a>
-        </div>
+  <body data-whatsapp={site.whatsapp}>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <div class="announcement"><div class="container"><span>From our island to your next adventure.</span><a href={whatsappLink('Hello Saumya Tours, I would like to plan a trip.')} target="_blank" rel="noopener noreferrer">Let’s talk travel <span aria-hidden="true">↗</span></a></div></div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="brand" aria-label="Saumya Tours home"><img src="/images/saumya-logo-v2.png" alt="Saumya Tours" width="680" height="224" /></a>
+        <nav class="desktop-nav" aria-label="Main navigation">{links.map(link => <a href={link.href} aria-current={Astro.url.pathname.replace(/\/$/, '') === link.href.replace(/\/$/, '') ? 'page' : undefined}>{link.title}</a>)}</nav>
+        <a class="button button-primary header-cta" href="/local-hires#hire-planner">Get a hire quote</a>
+        <button id="menu-toggle" class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false"><span>Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg></button>
       </div>
-
-      <!-- Mobile Dropdown -->
-      <div id="saumya-menu" class="hidden lg:hidden bg-[#fdfcf9] border-b border-[#e5dfd4] px-6 py-4 space-y-3 text-sm">
-        <a href="/" class="block py-1 text-slate-900 font-bold">Home</a>
-        <a href="/tours?category=sri-lanka-tours" class="block py-1 text-slate-700">Sri Lanka Inbound Tours</a>
-        <a href="/tours?category=dambadiva-pilgrimages" class="block py-1 text-emerald-800 font-bold">☸️ India Dambadiva Pilgrimages</a>
-        <a href="/tours?category=day-excursions" class="block py-1 text-slate-700">Wildlife & Safaris</a>
-        <a href="/tours" class="block py-1 text-slate-700">All Holiday Packages</a>
-        <a href="/about" class="block py-1 text-slate-700">About Saumya Tours</a>
-        <a href="/contact" class="block py-1 text-slate-700">Contact & Bookings</a>
-      </div>
+      <nav id="mobile-menu" class="mobile-nav container" aria-label="Mobile navigation" hidden>{links.map(link => <a href={link.href} aria-current={Astro.url.pathname.replace(/\/$/, '') === link.href.replace(/\/$/, '') ? 'page' : undefined}>{link.title}</a>)}<button class="button button-primary" data-inquire>Plan a journey</button></nav>
     </header>
-
-    <!-- Page Content -->
-    <main class="flex-grow">
-      <slot />
-    </main>
-
-    <!-- Global Trip Inquiry & Booking Modal -->
-    <div id="booking-modal" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
-      <div class="bg-white max-w-lg w-full rounded-2xl p-6 sm:p-8 space-y-5 border border-emerald-200 shadow-2xl relative">
-        <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 p-1" aria-label="Close Modal">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        <div class="space-y-1">
-          <span class="text-xs font-bold uppercase tracking-wider text-amber-700 font-mono">// RESERVATIONS & QUOTES</span>
-          <h3 id="modal-tour-title" class="font-heading text-xl font-bold text-emerald-950">Book Your Tour</h3>
-          <p class="text-xs text-slate-500">Submit your travel dates and requirements. We respond within 2 hours with customized itineraries.</p>
-        </div>
-
-        <form id="tour-inquiry-form" class="space-y-3 text-xs">
-          <input type="hidden" id="inquiry-tour-name" value="General Inquiry" />
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Full Name *</label>
-              <input type="text" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:border-emerald-600 focus:outline-hidden" placeholder="e.g. Bandula Wickrama" />
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">WhatsApp / Phone *</label>
-              <input type="tel" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:border-emerald-600 focus:outline-hidden" placeholder="+94 77 123 4567" />
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Estimated Travel Month / Date</label>
-              <input type="date" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:border-emerald-600 focus:outline-hidden" />
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">No. of Travelers</label>
-              <select class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:border-emerald-600 focus:outline-hidden bg-white">
-                <option>2 Adults</option>
-                <option>Family (3 - 5 Persons)</option>
-                <option>Group Pilgrimage (10+ Persons)</option>
-                <option>Solo Traveler</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label class="block font-semibold text-slate-700 mb-1">Tour Preference</label>
-            <select id="inquiry-package-select" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:border-emerald-600 focus:outline-hidden bg-white">
-              <option value="12-day-dambadiva">12-Day Sacred India Dambadiva Pilgrimage (Colombo Flights Included)</option>
-              <option value="10-day-dambadiva">10-Day India Dambadiva Classic Circuit</option>
-              <option value="7-day-sri-lanka">7-Day Wonders of Sri Lanka (Sigiriya, Kandy, Ella, Yala)</option>
-              <option value="3-day-yala">3-Day Yala Leopard Safari & Galle Coast</option>
-              <option value="custom">Custom Tailored Itinerary</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block font-semibold text-slate-700 mb-1">Special Requests or Inquiries</label>
-            <textarea rows="3" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:border-emerald-600 focus:outline-hidden" placeholder="Dietary preferences, senior citizen assistance, hotel tier..."></textarea>
-          </div>
-
-          <button type="submit" class="w-full py-3 bg-emerald-800 hover:bg-emerald-700 text-amber-200 font-bold uppercase tracking-wider rounded-lg transition-colors shadow-md text-xs">
-            Send Booking Inquiry
-          </button>
-          <div id="booking-success" class="hidden text-emerald-800 text-xs text-center font-bold pt-1">
-            ✓ Inquiry received! Our tour director will call/WhatsApp you shortly.
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-[#022c22] text-slate-300 border-t border-emerald-900/60">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        <!-- Col 1: Identity -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-3">
-            <img src="/images/logo.jpg" alt="Saumya Tours Logo" class="w-12 h-12 rounded-full border-2 border-amber-400" />
-            <div>
-              <span class="font-heading text-xl font-bold tracking-wider text-white">SAUMYA TOURS</span>
-              <div class="text-[10px] text-amber-300 uppercase">Journeys of Wonder & Faith</div>
-            </div>
-          </div>
-          <p class="text-xs text-emerald-100/70 leading-relaxed">
-            Registered Tour Operator under Sri Lanka Tourism Development Authority (SLTDA). Specialized in bespoke Sri Lanka inbound adventures and sacred Buddhist Dambadiva pilgrimages to India.
-          </p>
-          <div class="text-xs text-amber-300 font-mono">
-            Licence: SLTDA/SQA/TA/2026/089
-          </div>
-        </div>
-
-        <!-- Col 2: Inbound Tours -->
-        <div>
-          <h4 class="font-heading text-sm font-bold tracking-wider text-amber-300 uppercase mb-4">Sri Lanka Tours</h4>
-          <ul class="space-y-2 text-xs">
-            <li><a href="/tours?category=sri-lanka-tours" class="hover:text-amber-300 transition-colors">Sigiriya & Cultural Triangle</a></li>
-            <li><a href="/tours?category=sri-lanka-tours" class="hover:text-amber-300 transition-colors">Ella Scenic Blue Train & Tea Hills</a></li>
-            <li><a href="/tours?category=day-excursions" class="hover:text-amber-300 transition-colors">Yala & Wilpattu Leopard Safaris</a></li>
-            <li><a href="/tours?category=day-excursions" class="hover:text-amber-300 transition-colors">Galle UNESCO Fort & Whale Watching</a></li>
-            <li><a href="/tours" class="hover:text-amber-300 transition-colors">Custom Private Chauffeur Packages</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 3: India Dambadiva -->
-        <div>
-          <h4 class="font-heading text-sm font-bold tracking-wider text-amber-300 uppercase mb-4">India Dambadiva Pilgrimages</h4>
-          <ul class="space-y-2 text-xs">
-            <li><a href="/tours?category=dambadiva-pilgrimages" class="hover:text-amber-300 transition-colors">12-Day All-Inclusive Buddhist Circuit</a></li>
-            <li><a href="/tours?category=dambadiva-pilgrimages" class="hover:text-amber-300 transition-colors">Bodh Gaya & Mahabodhi Temple Worship</a></li>
-            <li><a href="/tours?category=dambadiva-pilgrimages" class="hover:text-amber-300 transition-colors">Sarnath Deer Park & Ganges Twilight</a></li>
-            <li><a href="/tours?category=dambadiva-pilgrimages" class="hover:text-amber-300 transition-colors">Kushinagar Parinirvana & Lumbini</a></li>
-            <li><a href="/tours?category=dambadiva-pilgrimages" class="hover:text-amber-300 transition-colors">SriLankan Airlines Group Bookings</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 4: Contacts & Address -->
-        <div>
-          <h4 class="font-heading text-sm font-bold tracking-wider text-amber-300 uppercase mb-4">Head Office & Liaison</h4>
-          <div class="space-y-2 text-xs text-emerald-100/70">
-            <p><span class="text-white font-semibold">Colombo Office:</span> No. 72, Cotta Road, Borella, Colombo 08, Sri Lanka</p>
-            <p><span class="text-white font-semibold">India Liaison Office:</span> Near Sri Lanka Buddhist Temple, Bodh Gaya, Bihar, India</p>
-            <p><span class="text-amber-300 font-bold">Hotline:</span> +94 11 267 8900</p>
-            <p><span class="text-amber-300 font-bold">WhatsApp:</span> +94 77 567 8901</p>
-            <p><span class="text-white">Email:</span> reservations@saumyatours.lk</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="border-t border-emerald-900/80 py-6 text-center text-xs text-emerald-200/60">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>© 2026 Saumya Tours Sri Lanka. All Rights Reserved. Backed by Go Multi-Tenant Tourism & Logistics Engine.</p>
-          <div class="flex items-center gap-3 text-amber-300 text-xs">
-            <span>🇱🇰 Sri Lanka Rupee (LKR) / USD Accepted</span>
-            <span>•</span>
-            <span>PayHere & Bank Transfer</span>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Client JS for Modals & Navigation -->
-    <script is:inline>
-      window.openBookingModal = function(packageName) {
-        const modal = document.getElementById('booking-modal');
-        const titleElem = document.getElementById('modal-tour-title');
-        const hiddenInput = document.getElementById('inquiry-tour-name');
-        if (titleElem && packageName) titleElem.textContent = `Inquire: ${packageName}`;
-        if (hiddenInput && packageName) hiddenInput.value = packageName;
-        if (modal) modal.classList.remove('hidden');
-      };
-
-      window.closeBookingModal = function() {
-        const modal = document.getElementById('booking-modal');
-        if (modal) modal.classList.add('hidden');
-      };
-
-      document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('saumya-menu-btn')?.addEventListener('click', () => {
-          document.getElementById('saumya-menu')?.classList.toggle('hidden');
-        });
-
-        document.getElementById('tour-inquiry-form')?.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const alert = document.getElementById('booking-success');
-          if (alert) alert.classList.remove('hidden');
-          e.target.reset();
-          setTimeout(() => {
-            closeBookingModal();
-            if (alert) alert.classList.add('hidden');
-          }, 2500);
-        });
-      });
-    </script>
+    <main id="main-content" tabindex="-1"><slot /></main>
+    <section class="journey-cta"><div class="container cta-inner"><div><h2>A good journey starts<br />with a conversation.</h2><p>Tell us where you’d like to go. We’ll help with the rest.</p></div><button class="button button-dark" data-inquire>Plan my journey <span aria-hidden="true">↗</span></button></div></section>
+    <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><a href="/" aria-label="Saumya Tours home"><img src="/images/saumya-logo-v2.png" alt="Saumya Tours" width="680" height="224" loading="lazy" /></a><p>Island discoveries. Sacred journeys.<br />Travel with a little more meaning.</p></div><div><h2>Explore</h2><a href="/local-hires">Local vehicle hires</a><a href="/fleet">Nissan Caravan & AMG C-Class</a><a href="/guides">Local & pilgrimage guides</a><a href="/news">Travel notes & guides</a><a href="/tours?category=sri-lanka-tours">Sri Lanka journeys</a><a href="/dambadiva-tours">Dambadiva pilgrimages</a><a href="/tours?category=day-excursions">Wildlife & short escapes</a><a href="/about">Meet Saumya Tours</a></div><div><h2>Let’s make plans</h2><a href={whatsappLink('Hello Saumya Tours, I would like to plan a trip.')} target="_blank" rel="noopener noreferrer">WhatsApp: {site.phone}</a><a href={`mailto:${site.email}`}>{site.email}</a><p>{site.address}</p><a href="/contact">Contact our team</a></div></div><div class="container footer-bottom"><p>© {new Date().getFullYear()} Saumya Tours. All rights reserved.</p><a href="/privacy">Privacy & inquiries</a><span>Made for memorable journeys.</span></div></footer>
+    <dialog id="booking-modal" aria-labelledby="inquiry-title" aria-describedby="inquiry-description"><button type="button" class="dialog-close" data-close-dialog aria-label="Close inquiry">×</button><h2 id="inquiry-title">Let’s plan your journey.</h2><p id="inquiry-description">A few details will help our team guide you. Fields marked * are required.</p><InquiryForm id="booking" /></dialog>
+    <script>import '../scripts/site';</script>
   </body>
 </html>

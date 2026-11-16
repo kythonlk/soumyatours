@@ -1,0 +1,5 @@
+---
+import { fleet } from '../lib/fleet';
+import VehicleArt from './VehicleArt.astro';
+---
+<div class="fleet-grid">{fleet.map(vehicle=><article class="fleet-card"><VehicleArt kind={vehicle.illustration} name={vehicle.name} /><div class="fleet-copy"><p class="fleet-type">{vehicle.type} <span>1 vehicle in fleet</span></p><h3>{vehicle.name}</h3><p>{vehicle.description}</p><div class="fleet-features"><span>{vehicle.use}</span><span>Quote for your route</span></div><a href={`/local-hires?vehicle=${vehicle.id}#hire-planner`} class="button button-primary">Request this vehicle</a></div></article>)}</div>

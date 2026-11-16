@@ -1,0 +1,9 @@
+Destination imagery
+- sigiriya.webp: crop of the project's existing hero-banner.jpg supplied with the website.
+- dambadiva.webp: optimized version of the project's existing dambadiva.jpg.
+- yala.webp: Pexels photo 17281958, Elephant on Green Savanna, Yala National Park, Sri Lanka.
+  Source: https://www.pexels.com/photo/elephant-on-green-savanna-17281958/
+  License: https://www.pexels.com/license/
+Brand assets
+- saumya-logo-v2.png: web-sized crop of new-logo.png supplied by the owner.
+- favicon-v2.png and apple-touch-icon-v2.png: web-sized versions of new-fav.png supplied by the owner.

@@ -1,11 +1,11 @@
 // @ts-check
+import process from 'node:process';
 import { defineConfig } from 'astro/config';
-
 import tailwindcss from '@tailwindcss/vite';
-
-// https://astro.build/config
+const productionUrl = process.env.SITE_URL;
+if (productionUrl && !/^https:\/\//.test(productionUrl)) throw new Error('SITE_URL must be an absolute HTTPS URL');
 export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()]
-  }
+  ...(productionUrl ? {site:productionUrl} : {}),
+  devToolbar:{enabled:false},
+  vite:{plugins:[tailwindcss()]},
 });

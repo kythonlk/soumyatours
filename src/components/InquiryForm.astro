@@ -1,0 +1,19 @@
+---
+interface Props { id: string; tour?: string }
+const { id, tour = 'Help me choose a journey' } = Astro.props;
+---
+<form class="inquiry-form" data-inquiry-form>
+  <div class="form-row">
+    <label for={`${id}-name`}>Your name <span aria-hidden="true">*</span><input id={`${id}-name`} name="name" autocomplete="name" required maxlength="100" placeholder="Full name" /></label>
+    <label for={`${id}-phone`}>Phone or WhatsApp <span aria-hidden="true">*</span><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" required minlength="7" maxlength="30" placeholder="Include country code" /></label>
+  </div>
+  <label for={`${id}-tour`}>Journey of interest<input id={`${id}-tour`} name="tour" value={tour} maxlength="250" /></label>
+  <div class="form-row">
+    <label for={`${id}-date`}>Preferred departure<input id={`${id}-date`} name="date" type="date" /></label>
+    <label for={`${id}-travelers`}>Travelers<select id={`${id}-travelers`} name="travelers"><option>2 travelers</option><option>1 traveler</option><option>3–5 travelers</option><option>6–9 travelers</option><option>10+ travelers</option></select></label>
+  </div>
+  <label for={`${id}-message`}>What would make this your kind of trip?<textarea id={`${id}-message`} name="message" rows="3" maxlength="2000" placeholder="Places, pace, budget, or assistance you need…"></textarea></label>
+  <p class="form-note">Opens WhatsApp with your inquiry. Review it and press Send there. No booking or payment is made on this website.</p>
+  <button type="submit" class="button button-primary">Continue in WhatsApp <span aria-hidden="true">↗</span></button>
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>

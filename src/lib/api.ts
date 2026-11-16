@@ -34,7 +34,7 @@ export interface TourPackage {
   review_count: number;
 }
 
-const API_BASE = "http://localhost:8080/api/v1";
+const API_BASE = import.meta.env.PUBLIC_API_URL || "http://76.13.221.75:9488/api/v1";
 const STORE_ID = "store_saumya";
 
 export const FALLBACK_TOURS: TourPackage[] = [
