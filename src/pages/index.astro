@@ -3,19 +3,148 @@ import Layout from '../layouts/Layout.astro';
 import TourCard from '../components/TourCard.astro';
 import HirePlanner from '../components/HirePlanner.astro';
 import FleetCards from '../components/FleetCards.astro';
-import { getCatalog } from '../lib/catalog';
+import { getCatalog, plainText } from '../lib/catalog';
+
 const tours = await getCatalog();
-const pilgrimage = tours.filter(t => t.category_slug === 'dambadiva-pilgrimages');
-const island = tours.filter(t => t.category_slug !== 'dambadiva-pilgrimages');
+const island = tours
+  .filter((t) => t.category_slug !== 'dambadiva-pilgrimages')
+  .sort((a, b) => Number(b.is_featured) - Number(a.is_featured));
+const pilgrimage = tours.filter((t) => t.category_slug === 'dambadiva-pilgrimages');
+const featuredPilgrimage = pilgrimage[0];
+const extraPilgrimages = pilgrimage.slice(1);
 ---
-<Layout>
-  <section class="home-hero"><div class="hero-copy"><span class="sun-mark" aria-hidden="true">✺</span><h1>Your local ride.<br />Your next journey.</h1><p>From a local hire in Pita Kotte to a journey across Sri Lanka. Choose a Nissan Caravan or Mercedes-Benz AMG C-Class, find a guide, or plan your Dambadiva pilgrimage.</p><div class="hero-actions"><a href="/local-hires#hire-planner" class="button button-primary">Get a hire quote</a><a href="/fleet" class="text-link">See our fleet</a></div></div><div class="hero-photo"><img src="/images/sigiriya.webp" alt="Sigiriya rock fortress surrounded by Sri Lanka’s green landscape" width="1200" height="900" fetchpriority="high" /><div class="photo-note"><div><strong>An island full of possibilities.</strong><span>Sigiriya, Sri Lanka</span></div><span aria-hidden="true">☀</span></div></div></section>
-  <div class="travel-strip"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s7-6 7-12a7 7 0 10-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="9" r="2"/></svg>Local knowledge, thoughtful routes</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 5h16v12H8l-4 4V5z"/></svg>A real conversation before you travel</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s-9-5-9-12a5 5 0 019-3 5 5 0 019 3c0 7-9 12-9 12z"/></svg>Journeys shaped around you</span></div>
-  <section class="section"><div class="container"><HirePlanner /></div></section>
-  <section class="section section-soft"><div class="container"><div class="section-head"><div><h2>Meet your next ride.</h2><p>One Nissan Caravan. One Mercedes-Benz AMG C-Class. Local hires, family trips, airport transfers, and special occasions.</p></div><a href="/fleet" class="text-link">Explore our fleet</a></div><FleetCards /></div></section>
-  <section class="section"><div class="container"><div class="section-intro"><h2>More than getting there.</h2><p>A local team to help with the drive, the route, and the moments along the way.</p></div><div class="values-grid"><div class="value"><h3>A local guide</h3><p>Explore Sri Lanka with arrangements shaped around your interests, language, and pace.</p><a href="/guides" class="text-link">Find guide arrangements</a></div><div class="value"><h3>A sacred journey</h3><p>Explore Dambadiva itineraries and discuss the pilgrimage that suits your family.</p><a href="/dambadiva-tours" class="text-link">Plan a pilgrimage</a></div><div class="value"><h3>A better prepared trip</h3><p>Read practical advice for local hires, vehicle choices, and pilgrimage planning.</p><a href="/news" class="text-link">Read our travel notes</a></div></div></div></section>
-  <section class="section" id="dambadiva-section"><div class="container"><div class="section-head"><div><h2>A journey close to the heart.</h2><p>Travel through India and Nepal’s sacred Buddhist sites, with time for worship, reflection, and the moments in between.</p></div><a href="/dambadiva-tours" class="text-link">Discover Dambadiva</a></div><div class="tour-grid">{pilgrimage.map(tour => <TourCard tour={tour} />)}</div>{!pilgrimage.length && <div class="empty-state"><p>Tell us about the pilgrimage you have in mind.</p><button class="button button-primary" data-inquire="Dambadiva pilgrimage">Ask about pilgrimages</button></div>}</div></section>
-  <section class="section section-soft" id="sri-lanka-section"><div class="container"><div class="section-head"><div><h2>Our island, at your pace.</h2><p>Ancient cities, misty hill country, wild encounters, and the coast. Find your own way into Sri Lanka.</p></div><a href="/tours?category=sri-lanka-tours" class="text-link">Explore Sri Lanka</a></div><div class="tour-grid">{island.map(tour => <TourCard tour={tour} />)}</div></div></section>
-  <section class="section"><div class="container story-split"><div class="story-image"><img src="/images/dambadiva.webp" alt="Buddhist temple architecture along the Dambadiva pilgrimage circuit" width="900" height="720" loading="lazy" /></div><div class="story-copy"><h2>Travel is personal.<br />So are we.</h2><p>A pilgrimage with your parents. Your first visit to Sri Lanka. A few days away with the people you love. Every journey starts with a different story.</p><p>We’ll listen to yours, help you choose a route, and talk through the practical details before you decide.</p><a href="/about" class="text-link">The Saumya approach</a></div></div></section>
-  <section class="section section-soft"><div class="container"><div class="section-intro"><h2>Good to know before you go.</h2><p>A little clarity goes a long way. Our team can help you work through the details.</p></div><div class="values-grid"><div class="value"><h3>Choose your pace</h3><p>Talk through travel distances, walking, rest days, and the places you most want to see.</p></div><div class="value"><h3>Know what’s included</h3><p>Review the itinerary and ask for a written quote covering your dates, accommodation, and transport.</p></div><div class="value"><h3>Plan for your needs</h3><p>Tell us about dietary needs, mobility support, or family arrangements before booking.</p></div></div></div></section>
+<Layout
+  title="Sri Lanka Local Trips & Vehicle Hire | Saumya Tours"
+  description="Plan Sri Lanka local trips, wildlife safaris, and private vehicle hires from Pita Kotte. Nissan Caravan, Mercedes-Benz AMG C-Class, local guides, and Dambadiva pilgrimages."
+>
+  <section class="home-hero">
+    <div class="hero-copy">
+      <p class="hero-location">Pita Kotte, Sri Lanka</p>
+      <h1>Sri Lanka local trips and private vehicle hire.</h1>
+      <p>
+        Explore Sri Lanka’s cultural triangle, hill country, and wildlife parks at your pace — or book our Nissan Caravan, Mercedes-Benz AMG C-Class, local guides, and Dambadiva pilgrimages directly from Pita Kotte.
+      </p>
+      <div class="hero-actions">
+        <a href="#journeys" class="button button-primary">Explore local trips</a>
+        <a href="#hire-planner" class="text-link text-link-on-dark">Get a hire quote</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img
+        src="/images/sigiriya.webp"
+        alt="Sigiriya rock fortress surrounded by Sri Lanka’s green forest canopy at sunset"
+        width="1200"
+        height="900"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section" id="journeys">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Sri Lanka trip packages and pilgrimages.</h2>
+          <p>Start with our local Sri Lanka itineraries — from multi-day island circuits to Yala wildlife escapes — or plan a Dambadiva Buddhist pilgrimage across India and Nepal.</p>
+        </div>
+        <a href="/tours" class="text-link">View all journeys</a>
+      </div>
+
+      {island.length > 0 && (
+        <div class="tour-grid">
+          {island.map((tour) => (
+            <TourCard tour={tour} />
+          ))}
+        </div>
+      )}
+
+      {featuredPilgrimage && (
+        <article class="tour-spotlight tour-spotlight-below">
+          <a href={`/tour/${featuredPilgrimage.slug}`} class="tour-spotlight-media" aria-label={`Explore ${featuredPilgrimage.title}`}>
+            <img
+              src={featuredPilgrimage.images[0].url}
+              alt={featuredPilgrimage.images[0].alt_text || featuredPilgrimage.title}
+              width="900"
+              height="640"
+              loading="lazy"
+            />
+            <span class="tour-destination">India &amp; Nepal</span>
+          </a>
+          <div class="tour-spotlight-body">
+            <div class="tour-meta">
+              <span>{featuredPilgrimage.duration_days} days / {Math.max(0, featuredPilgrimage.duration_days - 1)} nights</span>
+              <span>Dambadiva pilgrimage</span>
+            </div>
+            <h3><a href={`/tour/${featuredPilgrimage.slug}`}>{featuredPilgrimage.title}</a></h3>
+            <p>{plainText(featuredPilgrimage.short_description)}</p>
+            <div class="tour-spotlight-actions">
+              <div>
+                <span class="price-label">From, per person</span>
+                <strong class="tour-price">
+                  {featuredPilgrimage.price > 0 ? `LKR ${featuredPilgrimage.price.toLocaleString('en-LK')}` : 'Request a quote'}
+                </strong>
+              </div>
+              <div class="hero-actions" style="margin-top: 0;">
+                <a href={`/tour/${featuredPilgrimage.slug}`} class="button button-dark">View pilgrimage</a>
+                <a href="/dambadiva-tours" class="text-link">Dambadiva overview</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      )}
+
+      {extraPilgrimages.length > 0 && (
+        <div class="tour-grid" style="margin-top: 32px;">
+          {extraPilgrimages.map((tour) => (
+            <TourCard tour={tour} />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section section-stone" id="fleet">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Two vehicles, ready to request.</h2>
+          <p>One Nissan Caravan and one Mercedes-Benz AMG C-Class operating from Pita Kotte for Sri Lanka trips, airport pickups, family outings, and special occasions.</p>
+        </div>
+        <a href="/fleet" class="text-link">See fleet details</a>
+      </div>
+      <FleetCards />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <HirePlanner />
+    </div>
+  </section>
+
+  <section class="section section-stone">
+    <div class="container">
+      <div class="section-intro">
+        <h2>Practical planning, before you confirm.</h2>
+        <p>Direct local support from Pita Kotte — whether you need a licensed guide, a multi-stop hire, or verified destination background.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value">
+          <h3>Local &amp; pilgrimage guides</h3>
+          <p>Arrange Sri Lanka sightseeing commentary or discuss Dambadiva tour leadership around your group’s language and walking pace.</p>
+          <a href="/guides" class="text-link">Explore guide options</a>
+        </div>
+        <div class="value">
+          <h3>12 sourced travel guides</h3>
+          <p>Checklists and official links covering Bandaranaike Airport transfers, Sigiriya, Kandy, Ella rail bookings, Yala, and Dambadiva.</p>
+          <a href="/news" class="text-link">Read travel guides</a>
+        </div>
+        <div class="value">
+          <h3>How Saumya Tours works</h3>
+          <p>Every request starts with a direct conversation and a written quote covering vehicle, stops, inclusions, and terms before you decide.</p>
+          <a href="/about" class="text-link">About our team</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>

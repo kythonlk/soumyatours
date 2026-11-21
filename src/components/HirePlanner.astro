@@ -1,4 +1,76 @@
 ---
 import { fleet } from '../lib/fleet';
 ---
-<section class="hire-planner" id="hire-planner" aria-labelledby="hire-heading"><div class="planner-intro"><p class="location-note">Based in Pita Kotte, Sri Lanka</p><h2 id="hire-heading">Where shall we take you?</h2><p>Choose your ride and tell us the route. We’ll confirm availability and a quote directly.</p></div><form data-hire-form class="hire-form"><fieldset><legend>Choose your vehicle</legend><div class="vehicle-choices">{fleet.map((v,i)=><label class="vehicle-choice"><input type="radio" name="vehicle" value={v.name} data-vehicle-id={v.id} checked={i===0} /><span><strong>{v.name}</strong><small>{v.type}</small></span></label>)}</div></fieldset><div class="form-row"><label for="hire-pickup">Pickup location *<input id="hire-pickup" name="pickup" required maxlength="160" placeholder="e.g. Pita Kotte" autocomplete="street-address" /></label><label for="hire-dropoff">Destination *<input id="hire-dropoff" name="dropoff" required maxlength="160" placeholder="e.g. Bandaranaike Airport" /></label></div><div class="form-row"><label for="hire-date">Travel date *<input id="hire-date" type="date" name="date" required /></label><label for="hire-service">Type of journey<select id="hire-service" name="service"><option>One-way transfer</option><option>Return journey</option><option>Full-day hire</option><option>Multi-day trip</option><option>Wedding or special occasion</option></select></label></div><div class="form-row"><label for="hire-people">Travelers *<input id="hire-people" name="people" type="number" min="1" max="50" required value="2" /></label><label for="hire-name">Your name *<input id="hire-name" name="name" autocomplete="name" required maxlength="100" placeholder="Full name" /></label></div><label for="hire-notes">Anything else?<textarea id="hire-notes" name="notes" rows="2" maxlength="1500" placeholder="Pickup time, luggage, stops, or guide requirements…"></textarea></label><p class="form-note">We’ll check seating, luggage space, driver arrangements, and availability with you. Opens a WhatsApp draft for you to review and send. This is a quote request, not a confirmed reservation.</p><button class="button button-primary" type="submit">Get my hire quote ↗</button><p role="status" aria-live="polite" class="form-status"></p></form></section>
+<section class="hire-planner" id="hire-planner" aria-labelledby="hire-heading">
+  <div class="planner-intro">
+    <p class="location-note">Based in Pita Kotte, Sri Lanka</p>
+    <h2 id="hire-heading">Request a local hire quote</h2>
+    <p>Choose your vehicle and share your pickup point, destination, and date. Our team will confirm availability and send a written quote directly.</p>
+    <ul class="planner-highlights">
+      <li>Airport pickups &amp; drop-offs at Bandaranaike (CMB)</li>
+      <li>Colombo appointments, family outings &amp; multi-stop days</li>
+      <li>Weddings, executive travel &amp; multi-day Sri Lanka routes</li>
+    </ul>
+  </div>
+  <form data-hire-form class="hire-form">
+    <fieldset>
+      <legend>Choose your vehicle</legend>
+      <div class="vehicle-choices">
+        {fleet.map((v, i) => (
+          <label class="vehicle-choice">
+            <input type="radio" name="vehicle" value={v.name} data-vehicle-id={v.id} checked={i === 0} />
+            <span>
+              <strong>{v.name}</strong>
+              <small>{v.type}</small>
+            </span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+    <div class="form-row">
+      <label for="hire-pickup">
+        Pickup location *
+        <input id="hire-pickup" name="pickup" required maxlength="160" placeholder="e.g. Pita Kotte" autocomplete="street-address" />
+      </label>
+      <label for="hire-dropoff">
+        Destination *
+        <input id="hire-dropoff" name="dropoff" required maxlength="160" placeholder="e.g. Bandaranaike Airport" />
+      </label>
+    </div>
+    <div class="form-row">
+      <label for="hire-date">
+        Travel date *
+        <input id="hire-date" type="date" name="date" required />
+      </label>
+      <label for="hire-service">
+        Type of journey
+        <select id="hire-service" name="service">
+          <option>One-way transfer</option>
+          <option>Return journey</option>
+          <option>Full-day hire</option>
+          <option>Multi-day trip</option>
+          <option>Wedding or special occasion</option>
+        </select>
+      </label>
+    </div>
+    <div class="form-row">
+      <label for="hire-people">
+        Travelers *
+        <input id="hire-people" name="people" type="number" min="1" max="50" required value="2" />
+      </label>
+      <label for="hire-name">
+        Your name *
+        <input id="hire-name" name="name" autocomplete="name" required maxlength="100" placeholder="Full name" />
+      </label>
+    </div>
+    <label for="hire-notes">
+      Anything else?
+      <textarea id="hire-notes" name="notes" rows="2" maxlength="1500" placeholder="Pickup time, luggage, stops, or guide requirements…"></textarea>
+    </label>
+    <p class="form-note">
+      We confirm seating, luggage space, driver arrangements, and availability directly. Opens a WhatsApp draft for you to review and send — this is a quote request, not a confirmed reservation.
+    </p>
+    <button class="button button-primary" type="submit">Get my hire quote</button>
+    <p role="status" aria-live="polite" class="form-status"></p>
+  </form>
+</section>

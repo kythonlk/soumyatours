@@ -1,10 +1,30 @@
 ---
 import type { TourPackage } from '../lib/api';
 import { plainText } from '../lib/catalog';
-interface Props { tour: TourPackage }
+
+interface Props {
+  tour: TourPackage;
+}
 const { tour } = Astro.props;
 ---
 <article class="tour-card">
-  <a href={`/tour/${tour.slug}`} class="tour-image" aria-label={`Explore ${tour.title}`}><img src={tour.images[0].url} alt={tour.images[0].alt_text || tour.title} width="800" height="500" loading="lazy" decoding="async" /><span class="tour-destination">{tour.country === 'India (Dambadiva)' ? 'India & Nepal' : 'Sri Lanka'}</span></a>
-  <div class="tour-body"><div class="tour-meta"><span>{tour.duration_days} days / {Math.max(0,tour.duration_days - 1)} nights</span><span>{tour.category_name || 'Guided journey'}</span></div><h3><a href={`/tour/${tour.slug}`}>{tour.title}</a></h3><p>{plainText(tour.short_description)}</p><div class="tour-bottom"><div><span class="price-label">From, per person</span><strong class="tour-price">{tour.price > 0 ? `LKR ${tour.price.toLocaleString('en-LK')}` : 'Request a quote'}</strong></div><a href={`/tour/${tour.slug}`} class="button button-outline">View journey</a></div></div>
+  <a href={`/tour/${tour.slug}`} class="tour-image" aria-label={`Explore ${tour.title}`}>
+    <img src={tour.images[0].url} alt={tour.images[0].alt_text || tour.title} width="800" height="500" loading="lazy" decoding="async" />
+    <span class="tour-destination">{tour.country === 'India (Dambadiva)' ? 'India & Nepal' : 'Sri Lanka'}</span>
+  </a>
+  <div class="tour-body">
+    <div class="tour-meta">
+      <span>{tour.duration_days} days / {Math.max(0, tour.duration_days - 1)} nights</span>
+      <span>{tour.category_name || 'Guided journey'}</span>
+    </div>
+    <h3><a href={`/tour/${tour.slug}`}>{tour.title}</a></h3>
+    <p>{plainText(tour.short_description)}</p>
+    <div class="tour-bottom">
+      <div>
+        <span class="price-label">From, per person</span>
+        <strong class="tour-price">{tour.price > 0 ? `LKR ${tour.price.toLocaleString('en-LK')}` : 'Request a quote'}</strong>
+      </div>
+      <a href={`/tour/${tour.slug}`} class="button button-outline">View journey</a>
+    </div>
+  </div>
 </article>

@@ -2,44 +2,209 @@
 import '../styles/global.css';
 import InquiryForm from '../components/InquiryForm.astro';
 import { site, whatsappLink } from '../lib/site';
-interface Props { title?: string; description?: string; noindex?: boolean }
-const { title = 'Local vehicle hire in Pita Kotte & Dambadiva guides | Saumya Tours', description = 'Local vehicle hire from Pita Kotte: Nissan Caravan and Mercedes-Benz AMG C-Class. Plan Colombo transfers, Sri Lanka journeys, and Dambadiva pilgrimages with Saumya Tours.', noindex = false } = Astro.props;
+
+interface BreadcrumbItem {
+  name: string;
+  href?: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  image?: string;
+  imageAlt?: string;
+  ogType?: 'website' | 'article';
+  breadcrumbs?: BreadcrumbItem[];
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const {
+  title = 'Vehicle Hire Pita Kotte & Sri Lanka Tours | Saumya Tours',
+  description = 'Local vehicle hire from Pita Kotte: Nissan Caravan and Mercedes-Benz AMG C-Class. Plan Colombo transfers, Sri Lanka journeys, and Dambadiva pilgrimages with Saumya Tours.',
+  noindex = false,
+  image = '/images/og-cover.jpg',
+  imageAlt = 'Sigiriya rock fortress surrounded by Sri Lanka’s green canopy',
+  ogType = 'website',
+  breadcrumbs,
+  schema,
+} = Astro.props;
+
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
-const socialImage = Astro.site ? new URL('/images/hero-banner.jpg', Astro.site).href : '/images/hero-banner.jpg';
-const links = [{href:'/local-hires',title:'Local hires'}, {href:'/fleet',title:'Our fleet'}, {href:'/guides',title:'Guides'}, {href:'/dambadiva-tours',title:'Dambadiva'}, {href:'/news',title:'Travel notes'}, {href:'/contact',title:'Contact'}];
-const businessSchema={'@context':'https://schema.org','@type':'TravelAgency',name:site.name,description:'Local vehicle hire from Pita Kotte, Sri Lanka journeys, and Dambadiva pilgrimage planning.',address:{'@type':'PostalAddress',streetAddress:'82/4, 3rd Baptist Lane, Beddagane',addressLocality:'Pita Kotte',addressCountry:'LK'},telephone:site.phone,email:site.email,areaServed:[{'@type':'Country',name:'Sri Lanka'}],...(Astro.site?{url:Astro.site.href,logo:new URL('/images/saumya-logo-v2.png',Astro.site).href}:{})};
+const socialImage = Astro.site ? new URL(image, Astro.site).href : image;
+const isDefaultOg = image === '/images/og-cover.jpg';
+
+const links = [
+  { href: '/local-hires', title: 'Local hires' },
+  { href: '/fleet', title: 'Fleet' },
+  { href: '/tours', title: 'Journeys' },
+  { href: '/guides', title: 'Guides' },
+  { href: '/dambadiva-tours', title: 'Dambadiva' },
+  { href: '/news', title: 'Travel guides' },
+  { href: '/contact', title: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TravelAgency',
+  name: site.name,
+  description: 'Local vehicle hire from Pita Kotte, Sri Lanka journeys, local guides, and Dambadiva pilgrimage planning.',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '82/4, 3rd Baptist Lane, Beddagane',
+    addressLocality: 'Pita Kotte',
+    addressRegion: 'Western Province',
+    addressCountry: 'LK',
+  },
+  telephone: site.phone,
+  email: site.email,
+  areaServed: [{ '@type': 'Country', name: 'Sri Lanka' }],
+  ...(Astro.site
+    ? {
+        url: Astro.site.href,
+        logo: new URL('/images/saumya-logo-v2.png', Astro.site).href,
+        image: new URL('/images/og-cover.jpg', Astro.site).href,
+      }
+    : {}),
+};
+
+const breadcrumbSchema =
+  breadcrumbs && breadcrumbs.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((crumb, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: crumb.name,
+          ...(crumb.href && Astro.site ? { item: new URL(crumb.href, Astro.site).href } : {}),
+        })),
+      }
+    : null;
+
+const extraSchemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const allSchemas = [businessSchema, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...extraSchemas];
 ---
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title><meta name="description" content={description} />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
     {canonical && <link rel="canonical" href={canonical} />}
     {noindex && <meta name="robots" content="noindex,follow" />}
-    <meta name="theme-color" content="#ff7900" />
-    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-v2.png" /><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-v2.png" />
-    <meta property="og:type" content="website" /><meta property="og:site_name" content={site.name} /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:image" content={socialImage} /><meta property="og:image:alt" content="Sri Lanka and sacred Buddhist landmarks" />{canonical && <meta property="og:url" content={canonical} />}
-    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={socialImage} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script type="application/ld+json" set:html={JSON.stringify(businessSchema).replace(/</g, '\\u003c')} />
+    <meta name="theme-color" content="#102a22" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-v2.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-v2.png" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+    {isDefaultOg && <meta property="og:image:width" content="1200" />}
+    {isDefaultOg && <meta property="og:image:height" content="630" />}
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {allSchemas.map((item) => (
+      <script type="application/ld+json" set:html={JSON.stringify(item).replace(/</g, '\\u003c')} />
+    ))}
     <slot name="head" />
   </head>
   <body data-whatsapp={site.whatsapp}>
     <a href="#main-content" class="skip-link">Skip to content</a>
-    <div class="announcement"><div class="container"><span>From our island to your next adventure.</span><a href={whatsappLink('Hello Saumya Tours, I would like to plan a trip.')} target="_blank" rel="noopener noreferrer">Let’s talk travel <span aria-hidden="true">↗</span></a></div></div>
     <header class="site-header">
       <div class="container header-inner">
-        <a href="/" class="brand" aria-label="Saumya Tours home"><img src="/images/saumya-logo-v2.png" alt="Saumya Tours" width="680" height="224" /></a>
-        <nav class="desktop-nav" aria-label="Main navigation">{links.map(link => <a href={link.href} aria-current={Astro.url.pathname.replace(/\/$/, '') === link.href.replace(/\/$/, '') ? 'page' : undefined}>{link.title}</a>)}</nav>
+        <a href="/" class="brand" aria-label="Saumya Tours home">
+          <img src="/images/saumya-logo-v2.png" alt="Saumya Tours" width="680" height="224" />
+        </a>
+        <nav class="desktop-nav" aria-label="Main navigation">
+          {links.map((link) => (
+            <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>
+              {link.title}
+            </a>
+          ))}
+        </nav>
         <a class="button button-primary header-cta" href="/local-hires#hire-planner">Get a hire quote</a>
-        <button id="menu-toggle" class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false"><span>Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg></button>
+        <button id="menu-toggle" class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false">
+          <span>Menu</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
       </div>
-      <nav id="mobile-menu" class="mobile-nav container" aria-label="Mobile navigation" hidden>{links.map(link => <a href={link.href} aria-current={Astro.url.pathname.replace(/\/$/, '') === link.href.replace(/\/$/, '') ? 'page' : undefined}>{link.title}</a>)}<button class="button button-primary" data-inquire>Plan a journey</button></nav>
+      <nav id="mobile-menu" class="mobile-nav container" aria-label="Mobile navigation" hidden>
+        {links.map((link) => (
+          <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>
+            {link.title}
+          </a>
+        ))}
+        <button class="button button-primary" data-inquire>Plan a journey</button>
+      </nav>
     </header>
-    <main id="main-content" tabindex="-1"><slot /></main>
-    <section class="journey-cta"><div class="container cta-inner"><div><h2>A good journey starts<br />with a conversation.</h2><p>Tell us where you’d like to go. We’ll help with the rest.</p></div><button class="button button-dark" data-inquire>Plan my journey <span aria-hidden="true">↗</span></button></div></section>
-    <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><a href="/" aria-label="Saumya Tours home"><img src="/images/saumya-logo-v2.png" alt="Saumya Tours" width="680" height="224" loading="lazy" /></a><p>Island discoveries. Sacred journeys.<br />Travel with a little more meaning.</p></div><div><h2>Explore</h2><a href="/local-hires">Local vehicle hires</a><a href="/fleet">Nissan Caravan & AMG C-Class</a><a href="/guides">Local & pilgrimage guides</a><a href="/news">Travel notes & guides</a><a href="/tours?category=sri-lanka-tours">Sri Lanka journeys</a><a href="/dambadiva-tours">Dambadiva pilgrimages</a><a href="/tours?category=day-excursions">Wildlife & short escapes</a><a href="/about">Meet Saumya Tours</a></div><div><h2>Let’s make plans</h2><a href={whatsappLink('Hello Saumya Tours, I would like to plan a trip.')} target="_blank" rel="noopener noreferrer">WhatsApp: {site.phone}</a><a href={`mailto:${site.email}`}>{site.email}</a><p>{site.address}</p><a href="/contact">Contact our team</a></div></div><div class="container footer-bottom"><p>© {new Date().getFullYear()} Saumya Tours. All rights reserved.</p><a href="/privacy">Privacy & inquiries</a><span>Made for memorable journeys.</span></div></footer>
-    <dialog id="booking-modal" aria-labelledby="inquiry-title" aria-describedby="inquiry-description"><button type="button" class="dialog-close" data-close-dialog aria-label="Close inquiry">×</button><h2 id="inquiry-title">Let’s plan your journey.</h2><p id="inquiry-description">A few details will help our team guide you. Fields marked * are required.</p><InquiryForm id="booking" /></dialog>
-    <script>import '../scripts/site';</script>
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <section class="journey-cta">
+      <div class="container cta-inner">
+        <div>
+          <h2>Start your route with a direct conversation.</h2>
+          <p>Share your dates, pickup point, or destination. We will prepare a clear written quote.</p>
+        </div>
+        <button class="button button-gold" data-inquire>Plan my journey</button>
+      </div>
+    </section>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a href="/" aria-label="Saumya Tours home">
+            <img src="/images/saumya-logo-v2.png" alt="Saumya Tours" width="680" height="224" loading="lazy" />
+          </a>
+          <p>Local vehicle hires from Pita Kotte, Sri Lanka journeys, and Dambadiva pilgrimages planned directly with our team.</p>
+        </div>
+        <div>
+          <h2>Explore</h2>
+          <a href="/local-hires">Local vehicle hires</a>
+          <a href="/fleet">Nissan Caravan &amp; AMG C-Class</a>
+          <a href="/guides">Local &amp; pilgrimage guides</a>
+          <a href="/tours?category=sri-lanka-tours">Sri Lanka journeys</a>
+          <a href="/dambadiva-tours">Dambadiva pilgrimages</a>
+          <a href="/tours?category=day-excursions">Wildlife &amp; short escapes</a>
+          <a href="/news">Travel guides</a>
+          <a href="/about">About Saumya Tours</a>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <a href={whatsappLink('Hello Saumya Tours, I would like to plan a trip.')} target="_blank" rel="noopener noreferrer">
+            WhatsApp: {site.phone}
+          </a>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <p>{site.address}</p>
+          <a href="/contact">Contact details &amp; map</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© {new Date().getFullYear()} Saumya Tours. All rights reserved.</p>
+        <a href="/privacy">Privacy &amp; inquiries</a>
+      </div>
+    </footer>
+    <dialog id="booking-modal" aria-labelledby="inquiry-title" aria-describedby="inquiry-description">
+      <button type="button" class="dialog-close" data-close-dialog aria-label="Close inquiry">×</button>
+      <h2 id="inquiry-title">Plan your journey</h2>
+      <p id="inquiry-description">Share a few details so our team can respond with availability and a quote. Fields marked * are required.</p>
+      <InquiryForm id="booking" />
+    </dialog>
+    <script>
+      import '../scripts/site';
+    </script>
   </body>
 </html>

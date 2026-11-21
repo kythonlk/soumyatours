@@ -3,7 +3,53 @@ import Layout from '../layouts/Layout.astro';
 import InquiryForm from '../components/InquiryForm.astro';
 import { site, whatsappLink } from '../lib/site';
 ---
-<Layout title="Let’s plan your trip | Contact Saumya Tours" description="Contact Saumya Tours in Pita Kotte, Sri Lanka. Ask about island holidays, Dambadiva pilgrimages, travel dates, and custom itineraries.">
-  <section class="page-hero"><div class="container"><p class="breadcrumb"><a href="/">Home</a> / Contact</p><h1>Your next journey<br />starts here.</h1><p>A destination in mind? Or just the feeling that it’s time to go? Tell us a little about your plans.</p></div></section>
-  <section class="section"><div class="container contact-grid"><div class="contact-copy"><h2>Talk to a real person.</h2><p>Ask about a route, check availability, or tell us what you need to travel comfortably.</p><div class="contact-detail"><h3>Visit us in Pita Kotte</h3><p>{site.address}</p><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`} target="_blank" rel="noopener noreferrer">Find us on the map ↗</a><p class="form-note">Please contact us to arrange your visit.</p></div><div class="contact-detail"><h3>WhatsApp</h3><a href={whatsappLink('Hello Saumya Tours, I would like to plan a journey.')} target="_blank" rel="noopener noreferrer">{site.phone}</a></div><div class="contact-detail"><h3>Email</h3><a href={`mailto:${site.email}`}>{site.email}</a></div><div class="contact-detail"><h3>Before you book</h3><p>Ask for current dates, pricing, inclusions, visa requirements, and cancellation terms in writing.</p></div></div><div class="form-panel"><h2>Tell us about your trip.</h2><p>We’ll prepare your message for WhatsApp. Fields marked * are required.</p><InquiryForm id="contact" /></div></div></section>
+<Layout
+  title="Contact Saumya Tours | Pita Kotte, Sri Lanka"
+  description="Contact Saumya Tours at 82/4, 3rd Baptist Lane, Beddagane, Pita Kotte. Ask about local vehicle hires, Sri Lanka routes, and Dambadiva pilgrimages."
+  breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Contact', href: '/contact' }]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / Contact</p>
+      <h1>Talk directly with our team in Pita Kotte.</h1>
+      <p>Ask about vehicle availability, route pricing, local guides, or Dambadiva departure dates.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="contact-copy">
+        <h2>Direct contact</h2>
+        <p>Reach us on WhatsApp or email, or arrange a visit to our office in Beddagane, Pita Kotte.</p>
+        <div class="contact-detail">
+          <h3>Office address</h3>
+          <p>{site.address}</p>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`} target="_blank" rel="noopener noreferrer">
+            Open in Google Maps
+          </a>
+          <p class="form-note">Please message or call ahead to arrange an office visit.</p>
+        </div>
+        <div class="contact-detail">
+          <h3>WhatsApp &amp; phone</h3>
+          <a href={whatsappLink('Hello Saumya Tours, I would like to plan a journey.')} target="_blank" rel="noopener noreferrer">
+            {site.phone}
+          </a>
+        </div>
+        <div class="contact-detail">
+          <h3>Email</h3>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+        <div class="contact-detail">
+          <h3>Before you book</h3>
+          <p>Always confirm current dates, pricing, inclusions, visa requirements, and cancellation terms in writing.</p>
+        </div>
+      </div>
+
+      <div class="form-panel">
+        <h2>Send a trip inquiry</h2>
+        <p>We prepare your message for WhatsApp so you can review it before sending. Fields marked * are required.</p>
+        <InquiryForm id="contact" />
+      </div>
+    </div>
+  </section>
 </Layout>

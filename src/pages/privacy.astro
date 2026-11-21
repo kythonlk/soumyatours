@@ -2,6 +2,46 @@
 import Layout from '../layouts/Layout.astro';
 import { site } from '../lib/site';
 ---
-<Layout title="Privacy & travel inquiries | Saumya Tours" description="How the Saumya Tours website handles travel inquiries and links to third-party services.">
-<section class="page-hero"><div class="container"><h1>Privacy & inquiries</h1><p>How this website handles the details you share.</p></div></section><section class="section"><div class="container prose-page"><p>Last updated: 16 November 2026.</p><h2>Travel inquiries</h2><p>The inquiry forms prepare a message on your device. They do not submit your details to a Saumya Tours website server. When you choose to continue, WhatsApp opens with your message. You can review it before sending. Sending an inquiry does not create a booking.</p><p>Only share the information needed to discuss your trip. Please don’t send passport copies, payment details, or sensitive medical records through the website form.</p><h2>Third-party services</h2><p>The site loads typefaces from Google Fonts. Your browser connects to Google to retrieve them. WhatsApp, Google Maps, and your email provider process information under their own privacy terms when you use their links. Your hosting provider may process technical access logs.</p><h2>Cookies & storage</h2><p>This website does not intentionally set analytics or advertising cookies and does not store your form entries in browser storage. Third-party services may have their own cookies and storage policies.</p><h2>Questions about your information</h2><p>For questions about an inquiry you have sent, or to request correction or deletion of information held by our team, email <a href={`mailto:${site.email}`}>{site.email}</a>.</p><h2>Before making a booking</h2><p>Confirm the final itinerary, departure dates, inclusions, payment arrangements, and cancellation terms directly with our team in writing. Published prices are starting prices and may change with your dates and requirements.</p></div></section>
+<Layout
+  title="Privacy & Travel Inquiries | Saumya Tours"
+  description="How the Saumya Tours website handles travel inquiries, WhatsApp drafts, and third-party services."
+  breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Privacy & inquiries', href: '/privacy' }]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / Privacy &amp; inquiries</p>
+      <h1>Privacy &amp; inquiries</h1>
+      <p>How this website handles the details you share.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose-page">
+      <p>Last updated: 21 November 2026.</p>
+      <h2>Travel inquiries</h2>
+      <p>
+        The inquiry forms prepare a message on your device. They do not submit your details to a Saumya Tours website server. When you choose to continue, WhatsApp opens with your message so you can review it before sending. Sending an inquiry does not create a confirmed booking.
+      </p>
+      <p>
+        Only share the information needed to discuss your trip. Do not send passport copies, payment details, or sensitive medical records through the website form.
+      </p>
+      <h2>Third-party services</h2>
+      <p>
+        The site loads typefaces from Google Fonts. WhatsApp, Google Maps, and your email provider process information under their own privacy policies when you use their links. Your hosting provider may process standard technical access logs.
+      </p>
+      <h2>Cookies &amp; storage</h2>
+      <p>
+        This website does not set analytics or advertising cookies and does not store your form entries in browser storage. Third-party services may apply their own cookie policies.
+      </p>
+      <h2>Questions about your information</h2>
+      <p>
+        For questions about an inquiry you have sent, or to request correction or deletion of information held by our team, email{' '}
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+      <h2>Before making a booking</h2>
+      <p>
+        Confirm the final itinerary, departure dates, inclusions, payment arrangements, and cancellation terms directly with our team in writing. Published prices are starting prices and may vary by date and group requirements.
+      </p>
+    </div>
+  </section>
 </Layout>

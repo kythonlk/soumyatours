@@ -3,11 +3,156 @@ import Layout from '../../layouts/Layout.astro';
 import { getCatalog, plainText } from '../../lib/catalog';
 import type { TourPackage } from '../../lib/api';
 import { whatsappLink } from '../../lib/site';
-export async function getStaticPaths() { return (await getCatalog()).map(tour => ({ params:{slug:tour.slug}, props:{tour} })); }
-interface Props { tour: TourPackage }
+
+export async function getStaticPaths() {
+  return (await getCatalog()).map((tour) => ({ params: { slug: tour.slug }, props: { tour } }));
+}
+
+interface Props {
+  tour: TourPackage;
+}
 const { tour } = Astro.props;
+const summaryText = plainText(tour.short_description);
+
+const tripSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristTrip',
+  name: tour.title,
+  description: summaryText,
+  touristType: tour.category_name || 'Guided travelers',
+  provider: { '@type': 'TravelAgency', name: 'Saumya Tours' },
+  ...(tour.price > 0
+    ? {
+        offers: {
+          '@type': 'Offer',
+          price: tour.price,
+          priceCurrency: 'LKR',
+          availability: 'https://schema.org/InStock',
+        },
+      }
+    : {}),
+  ...(tour.itinerary?.length
+    ? {
+        itinerary: {
+          '@type': 'ItemList',
+          numberOfItems: tour.itinerary.length,
+          itemListElement: tour.itinerary.map((stage) => ({
+            '@type': 'ListItem',
+            position: stage.day,
+            name: `Day ${stage.day}: ${stage.title}`,
+            description: stage.description,
+          })),
+        },
+      }
+    : {}),
+  ...(Astro.site
+    ? {
+        image: new URL(tour.images[0].url, Astro.site).href,
+        url: new URL(Astro.url.pathname, Astro.site).href,
+      }
+    : {}),
+};
 ---
-<Layout title={`${tour.title} | Saumya Tours`} description={plainText(tour.short_description)}>
-  <section class="image-hero"><img src={tour.images[0].url} alt={tour.images[0].alt_text || tour.title} width="1400" height="900" fetchpriority="high" /><div class="container"><p class="breadcrumb"><a href="/">Home</a> / <a href="/tours">Our journeys</a> / {tour.duration_days} days</p><h1>{tour.title}</h1><p>{plainText(tour.short_description)}</p></div></section>
-  <section class="section"><div class="container detail-layout"><div class="detail-content"><section><h2>A little about this journey.</h2><p>{plainText(tour.description)}</p></section><section><h2>Your route, day by day.</h2><div class="itinerary">{tour.itinerary?.map((stage,i) => <details open={i===0}><summary><span class="day-number">Day {stage.day}</span><span>{stage.title}</span><span class="expand-icon" aria-hidden="true">+</span></summary><div><p>{stage.description}</p>{stage.highlights?.length > 0 && <ul class="highlight-list">{stage.highlights.map(h => <li>{h}</li>)}</ul>}</div></details>)}</div></section><div class="inclusions"><section><h2>Included in the plan</h2><ul class="inclusion-list">{tour.inclusions?.map(item => <li>{item}</li>)}</ul></section><section><h2>Plan separately</h2><ul class="inclusion-list">{tour.exclusions?.map(item => <li>{item}</li>)}</ul></section></div><section class="travel-note"><h3>Before confirming</h3><p>This is a guide to the journey. Dates, accommodation, transport, and prices are subject to availability. Ask our team for a written quote, current entry requirements, and cancellation terms before booking.</p></section></div><aside class="booking-card" aria-label="Journey inquiry"><small>From, per person</small><h2>{tour.price > 0 ? `LKR ${tour.price.toLocaleString('en-LK')}` : 'Request a quote'}</h2><p>{tour.duration_days} days / {Math.max(0,tour.duration_days-1)} nights</p><hr /><p>Tell us your travel dates and group size. We’ll help confirm the details and availability.</p><button class="button button-primary" data-inquire={tour.title}>Ask about this journey</button><a class="button button-outline" href={whatsappLink(`Hello Saumya Tours, I would like to know more about ${tour.title}.`)} target="_blank" rel="noopener noreferrer">Chat on WhatsApp ↗</a><p class="form-note">An inquiry is free and carries no booking obligation.</p></aside></div></section>
+<Layout
+  title={`${tour.title} | Saumya Tours`}
+  description={summaryText}
+  image={tour.images[0].url}
+  imageAlt={tour.images[0].alt_text || tour.title}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Our journeys', href: '/tours' },
+    { name: tour.title, href: `/tour/${tour.slug}` },
+  ]}
+  schema={tripSchema}
+>
+  <section class="image-hero">
+    <img src={tour.images[0].url} alt={tour.images[0].alt_text || tour.title} width="1400" height="900" fetchpriority="high" />
+    <div class="container">
+      <p class="breadcrumb">
+        <a href="/">Home</a> / <a href="/tours">Our journeys</a> / {tour.duration_days} days
+      </p>
+      <h1>{tour.title}</h1>
+      <p>{summaryText}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container detail-layout">
+      <div class="detail-content">
+        <section>
+          <h2>About this journey</h2>
+          <p>{plainText(tour.description)}</p>
+        </section>
+
+        <section>
+          <h2>Route, day by day</h2>
+          <div class="itinerary">
+            {tour.itinerary?.map((stage, i) => (
+              <details open={i === 0}>
+                <summary>
+                  <span class="day-number">Day {stage.day}</span>
+                  <span>{stage.title}</span>
+                  <span class="expand-icon" aria-hidden="true">+</span>
+                </summary>
+                <div>
+                  <p>{stage.description}</p>
+                  {stage.highlights?.length > 0 && (
+                    <ul class="highlight-list">
+                      {stage.highlights.map((h) => (
+                        <li>{h}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <div class="inclusions">
+          <section>
+            <h2>Included in the plan</h2>
+            <ul class="inclusion-list">
+              {tour.inclusions?.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </section>
+          <section>
+            <h2>Plan separately</h2>
+            <ul class="inclusion-list">
+              {tour.exclusions?.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        <section class="travel-note">
+          <h3>Before confirming</h3>
+          <p>
+            This itinerary is a guide to the route. Departure dates, accommodation, transport, and pricing depend on availability. Ask our team for a written quote, current entry requirements, and cancellation terms before booking.
+          </p>
+        </section>
+      </div>
+
+      <aside class="booking-card" aria-label="Journey inquiry">
+        <small>From, per person</small>
+        <h2>{tour.price > 0 ? `LKR ${tour.price.toLocaleString('en-LK')}` : 'Request a quote'}</h2>
+        <p>{tour.duration_days} days / {Math.max(0, tour.duration_days - 1)} nights</p>
+        <hr />
+        <p>Share your travel dates and group size. We will confirm availability and send a written quote.</p>
+        <button class="button button-primary" data-inquire={tour.title}>Ask about this journey</button>
+        <a
+          class="button button-outline"
+          href={whatsappLink(`Hello Saumya Tours, I would like to know more about ${tour.title}.`)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Chat on WhatsApp
+        </a>
+        <p class="form-note">An inquiry is free and carries no booking obligation.</p>
+      </aside>
+    </div>
+  </section>
 </Layout>

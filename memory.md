@@ -30,8 +30,22 @@
 - Verified: `npm run build` passed with live API (8 pages); `git diff --check` passed. No test script exists. Browser appearance not checked.
 
 ## Current state — latest
-- Branding changes pending, uncommitted. Existing user change in src/lib/api.ts preserved.
-- Production build passes with network access to tour API. No services started.
+- Design refresh & SEO upgrades pending, uncommitted (`src/lib/api.ts` untouched/preserved).
+- Built with Sri Lankan tropical modernism palette (`#ffffff` canvas, `#f4f5f1` stone, `#102a22` deep Ceylon canopy, `#c24604` accessible saffron, `#f5c352` gold on dark) and `Newsreader` + `Plus Jakarta Sans` typography following Anthropic's `frontend-design` skill.
+- Production build outputs 26 static pages cleanly; `public/images` reduced from 3.9 MB to 916 KB by removing unused legacy assets and adding a 120 KB 1200×630 `og-cover.jpg` and swan `favicon.ico`.
+- Launch prerequisites still open: set `SITE_URL` in production build env (activates canonicals, `sitemap.xml`, absolute OG/schema URLs), confirm real phone/WhatsApp/email, and supply real fleet & destination photos.
+
+### 2026-11-21 — agy — Prioritize local trips on homepage & realistic fleet photography
+- What: Reordered homepage sections so Sri Lanka trip packages are Section 2 (local Sri Lanka trips first in the 2-column grid, followed by the Dambadiva horizontal spotlight) and Fleet is Section 3, followed by the Hire Quote Planner (Section 4) and Planning strip (Section 5). Generated natural documentary-style Sri Lankan DSLR photos for both fleet vehicles (white Nissan Caravan NV350 on Colombo-suburb pebble driveway; black Mercedes-Benz AMG C-Class outside a tropical-modernist courtyard), optimized to WebP (~200 KB each), integrated into `FleetCards.astro`, and removed unused `VehicleArt.astro`.
+- Files: `src/pages/index.astro`, `src/pages/fleet.astro`, `src/components/FleetCards.astro`, `src/lib/fleet.ts`, `src/styles/global.css`, `public/images/{fleet-nissan-caravan.webp,fleet-amg-c-class.webp,credits.txt}`, deleted `src/components/VehicleArt.astro`.
+- Verified: `npm run check` (0 errors/warnings/hints across 30 files), `npm run build` (26 pages), `npm test` (8/8 Playwright + WCAG A/AA axe tests passed across 360/768/1440px), visual review on `/tmp/saumya-v3-*.png`.
+
+### 2026-11-21 — agy — Frontend-design refresh, declutter, and SEO upgrade
+- What: Applied Anthropic's `frontend-design` skill (`/tmp/skills-use-6wexjr/frontend-design/SKILL.md`) to break out of generic cream/terracotta defaults into a Sri Lankan tropical modernism visual system (`Newsreader` + `Plus Jakarta Sans`, crisp white `#ffffff`, limestone `#f4f5f1`, deep Ceylon canopy `#102a22`, accessible saffron `#c24604`).
+- What (Removed unwanted parts): Removed top announcement bar, decorative hero sunburst (`✺`), hero photo overlay card blocking Sigiriya's Lion Paws, generic yellow travel-strip platitudes, bloated duplicate homepage sections (9 sections streamlined to 5), pasted-on footer logo sticker box, appended `↗` button arrows, duplicate CSS rules, duplicate image error listener in `site.ts`, empty `tools/` dir, 8 unused legacy assets in `public/`, and 4 stale multi-MB raw PNGs in project root.
+- What (UI & SEO): Fixed awkward 1-card Dambadiva orphan grid with a full-width horizontal spotlight card; upgraded `VehicleArt.astro` SVGs to architectural studio side profiles; redesigned `/news` text covers as canopy/limestone monographs; added `Journeys` (`/tours`) to main nav; tightened page `<title>` lengths to <60 chars; added `BreadcrumbList`, `FAQPage`, `Service`, `TouristTrip`, `ItemList`, and `CollectionPage` JSON-LD schemas; added per-page `og:image`/`og:type`; generated `og-cover.jpg` (1200×630) and swan `favicon.ico`; added `<lastmod>` to `scripts/postbuild.mjs`.
+- Files: `src/styles/global.css`, `src/layouts/Layout.astro`, `src/scripts/site.ts`, `src/components/{VehicleArt,FleetCards,HirePlanner,TourCard,InquiryForm}.astro`, `src/pages/{index,local-hires,fleet,guides,dambadiva-tours,tours,about,contact,privacy,404}.astro`, `src/pages/tour/[slug].astro`, `src/pages/news/{index,[slug]}.astro`, `scripts/postbuild.mjs`, `public/favicon.ico`, `public/images/{og-cover.jpg,credits.txt}`.
+- Verified: `npm run check` (0 errors, 0 warnings, 0 hints), `npm run build` (26 pages in 659ms), full Playwright test suite (`8 passed` across 360/768/1440px, 0 axe WCAG A/AA violations, all images verified, interactive filters/forms/checklists passing), visual inspection of desktop & mobile screenshots (`/tmp/saumya-v2-*.png`).
 
 ## Gotchas — build network
 - Sandboxed build cannot reach tour API and uses fallback catalog (9 pages). Network-enabled build uses live catalog (8 pages).

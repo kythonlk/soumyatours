@@ -1,11 +1,70 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TourCard from '../components/TourCard.astro';
-import { getCatalog } from '../lib/catalog';
+import { getCatalog, plainText } from '../lib/catalog';
+
 const tours = await getCatalog();
-const filters = [{id:'all',label:'All journeys'},{id:'sri-lanka-tours',label:'Sri Lanka'},{id:'dambadiva-pilgrimages',label:'Dambadiva'},{id:'day-excursions',label:'Wildlife & short escapes'}];
+const filters = [
+  { id: 'all', label: 'All journeys' },
+  { id: 'sri-lanka-tours', label: 'Sri Lanka' },
+  { id: 'dambadiva-pilgrimages', label: 'Dambadiva' },
+  { id: 'day-excursions', label: 'Wildlife & short escapes' },
+];
+
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Saumya Tours Published Journeys',
+  itemListElement: tours.map((t, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: t.title,
+    description: plainText(t.short_description),
+    ...(Astro.site ? { url: new URL(`/tour/${t.slug}`, Astro.site).href } : {}),
+  })),
+};
 ---
-<Layout title="Find your journey | Saumya Tours" description="Browse Sri Lanka holidays, Dambadiva pilgrimages, and wildlife escapes. Compare routes and plan your journey with Saumya Tours.">
-  <section class="page-hero"><div class="container"><p class="breadcrumb"><a href="/">Home</a> / Our journeys</p><h1>Where will your story take you?</h1><p>From an island escape to a sacred pilgrimage, find a journey that feels like you.</p><div class="filter-bar" role="group" aria-label="Filter journeys by destination">{filters.map((f,i) => <button type="button" data-filter={f.id} aria-pressed={i === 0} aria-controls="tours-grid">{f.label}</button>)}</div></div></section>
-  <section class="section"><div class="container"><p class="results-count" id="tour-count" role="status" aria-live="polite">{tours.length} journeys to explore</p><div class="tour-grid" id="tours-grid">{tours.map(tour => <div data-tour-category={tour.category_slug}><TourCard tour={tour} /></div>)}</div><div id="empty-tours" class="empty-state" hidden><h2>Let’s find another way.</h2><p>There aren’t any published journeys in this category yet. Our team can help arrange a route for you.</p><button class="button button-primary" data-inquire="Custom journey">Ask about a custom journey</button></div><noscript><p class="results-count">All journeys are shown. Enable JavaScript to use the destination filters.</p></noscript></div></section>
+<Layout
+  title="Sri Lanka Journeys & Dambadiva Tours | Saumya Tours"
+  description="Browse Sri Lanka holidays, Dambadiva Buddhist pilgrimages, and Yala wildlife escapes. Compare routes and request a written quote from Saumya Tours."
+  breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Our journeys', href: '/tours' }]}
+  schema={listSchema}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / Our journeys</p>
+      <h1>Published journeys across Sri Lanka and Dambadiva.</h1>
+      <p>Filter by destination to compare itineraries, durations, and starting prices, or ask our team to tailor a private route.</p>
+      <div class="filter-bar" role="group" aria-label="Filter journeys by destination">
+        {filters.map((f, i) => (
+          <button type="button" data-filter={f.id} aria-pressed={i === 0} aria-controls="tours-grid">
+            {f.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="results-count" id="tour-count" role="status" aria-live="polite">
+        {tours.length} journeys to explore
+      </p>
+      <div class="tour-grid" id="tours-grid">
+        {tours.map((tour) => (
+          <div data-tour-category={tour.category_slug}>
+            <TourCard tour={tour} />
+          </div>
+        ))}
+      </div>
+      <div id="empty-tours" class="empty-state" hidden>
+        <h2>No published journeys in this category yet.</h2>
+        <p>Our team can put together a private route around your dates and interests.</p>
+        <button class="button button-primary" data-inquire="Custom journey">Ask about a custom journey</button>
+      </div>
+      <noscript>
+        <p class="results-count">All journeys are shown. Enable JavaScript to use the destination filters.</p>
+      </noscript>
+    </div>
+  </section>
 </Layout>

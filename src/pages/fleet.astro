@@ -1,5 +1,70 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import FleetCards from '../components/FleetCards.astro';
+import { fleet } from '../lib/fleet';
+
+const fleetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Saumya Tours Local Hire Fleet',
+  itemListElement: fleet.map((v, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Vehicle',
+      name: v.name,
+      description: v.description,
+    },
+  })),
+};
 ---
-<Layout title="Our fleet | Nissan Caravan & Mercedes-Benz AMG C-Class hire | Saumya Tours" description="Explore Saumya Tours’ local hire fleet in Pita Kotte: one Nissan Caravan and one Mercedes-Benz AMG C-Class. Ask about availability for your trip."><section class="page-hero"><div class="container"><p class="breadcrumb"><a href="/">Home</a> / Our fleet</p><h1>Two vehicles.<br />Plenty of possibilities.</h1><p>A group outing or a special arrival. Meet our Nissan Caravan and Mercedes-Benz AMG C-Class, available to request for local hires.</p></div></section><section class="section"><div class="container"><FleetCards /><p class="fleet-disclaimer">Illustrations are representative. Ask our team for current vehicle photos, exact specification, seating, luggage space, driver arrangements, and availability before confirming.</p></div></section><section class="section section-soft"><div class="container"><div class="section-intro"><h2>Match the ride to the plan.</h2><p>A few details help us recommend the right arrangement.</p></div><div class="values-grid"><div class="value"><h3>People & luggage</h3><p>Share your full group size and what you’ll carry. We’ll discuss the actual vehicle setup with you.</p></div><div class="value"><h3>Route & timing</h3><p>Send pickup, destination, travel date, stops, and any waiting time for an accurate quote.</p></div><div class="value"><h3>Special requirements</h3><p>Ask about guide arrangements, family needs, accessibility, or event presentation in advance.</p></div></div><div class="hero-actions"><a href="/local-hires#hire-planner" class="button button-primary">Request a hire quote</a><a href="/news/choosing-car-or-van-hire" class="text-link">Read the car or van guide</a></div></div></section></Layout>
+<Layout
+  title="Nissan Caravan & AMG C-Class Hire Fleet | Saumya Tours"
+  description="Explore Saumya Tours’ local hire fleet in Pita Kotte: one Nissan Caravan van and one Mercedes-Benz AMG C-Class. Request current photos and availability."
+  breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Our fleet', href: '/fleet' }]}
+  schema={fleetSchema}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / Our fleet</p>
+      <h1>Two vehicles, maintained for local hire.</h1>
+      <p>A family group outing or a private executive arrival. Meet our Nissan Caravan and Mercedes-Benz AMG C-Class, available to request from Pita Kotte.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <FleetCards />
+      <p class="fleet-disclaimer">
+        Representative vehicle photos are shown. Ask our team for current vehicle photos, exact specification, seating layout, luggage space, driver arrangements, and availability before confirming.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-stone">
+    <div class="container">
+      <div class="section-intro">
+        <h2>Match the ride to your route.</h2>
+        <p>A few practical details help us confirm the right arrangement before quoting.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value">
+          <h3>People &amp; luggage</h3>
+          <p>Share your full group size and suitcases or equipment. We will confirm the actual seating and storage setup with you.</p>
+        </div>
+        <div class="value">
+          <h3>Route &amp; timing</h3>
+          <p>Send pickup address, destination, travel date, stops, and any waiting periods for an accurate written quote.</p>
+        </div>
+        <div class="value">
+          <h3>Special requirements</h3>
+          <p>Ask about guide arrangements, family comfort needs, accessibility, or wedding presentation in advance.</p>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="/local-hires#hire-planner" class="button button-primary">Request a hire quote</a>
+        <a href="/news/choosing-car-or-van-hire" class="text-link">Read the car or van guide</a>
+      </div>
+    </div>
+  </section>
+</Layout>

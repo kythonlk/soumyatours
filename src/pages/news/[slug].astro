@@ -1,9 +1,137 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { articles } from '../../lib/journal';
-export function getStaticPaths(){return articles.map(article=>({params:{slug:article.slug},props:{article}}));}
-const {article} = Astro.props;
-const related=articles.filter(a=>a.slug!==article.slug).sort((a,b)=>Number(b.category===article.category)-Number(a.category===article.category)).slice(0,3);
-const schema={'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.description,author:{'@type':'Organization',name:'Saumya Tours'},datePublished:'2026-11-16',dateModified:'2026-11-16',...(Astro.site?{...(article.image?{image:new URL(article.image,Astro.site).href}:{}),mainEntityOfPage:new URL(Astro.url.pathname,Astro.site).href}:{}),citation:article.sources?.filter(s=>s.url.startsWith('https:')).map(s=>s.url)};
+
+export function getStaticPaths() {
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const related = articles
+  .filter((a) => a.slug !== article.slug)
+  .sort((a, b) => Number(b.category === article.category) - Number(a.category === article.category))
+  .slice(0, 3);
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.title,
+  description: article.description,
+  author: { '@type': 'Organization', name: 'Saumya Tours' },
+  publisher: { '@type': 'Organization', name: 'Saumya Tours' },
+  datePublished: '2026-11-16',
+  dateModified: '2026-11-21',
+  ...(Astro.site
+    ? {
+        ...(article.image ? { image: new URL(article.image, Astro.site).href } : {}),
+        mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
+      }
+    : {}),
+  citation: article.sources?.filter((s) => s.url.startsWith('https:')).map((s) => s.url),
+};
 ---
-<Layout title={`${article.title} | Saumya Tours`} description={article.description}><script slot="head" type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g,'\u003c')} /><article><header class="page-hero"><div class="container"><p class="breadcrumb"><a href="/">Home</a> / <a href="/news">Travel guides</a> / {article.category}</p><h1>{article.title}</h1><p>{article.description}</p><p class="article-meta">Saumya Tours editorial team / <time datetime="2026-11-16">16 November 2026</time> / {article.readTime}</p></div></header><div class="section"><div class="container article-layout"><nav aria-label="In this guide"><h2>In this guide</h2>{article.sections.map((s,i)=><a href={`#section-${i}`}>{s.heading}</a>)}<a href="#guide-checklist">Your planning checklist</a><a href="#guide-sources">Sources & current information</a></nav><div class="prose-page">{article.sections.map((s,i)=><section id={`section-${i}`}><h2>{s.heading}</h2><p>{s.text}</p></section>)}{article.checklist && <section id="guide-checklist" class="article-checklist"><h2>Your planning checklist</h2><p>Tick these off as you prepare. Your selections stay on this page only.</p>{article.checklist.map((item,i)=><label for={`check-${i}`}><input type="checkbox" id={`check-${i}`} /><span>{item}</span></label>)}</section>}<section id="guide-sources" class="article-sources"><h2>Sources & current information</h2><p>Destination facts are informed by the sources below; trip-planning suggestions are our editorial advice. Check the official provider for current access, schedules, prices, and visitor requirements before travel.</p><ul>{article.sources?.map(source=><li><a href={source.url} target={source.url.startsWith('https:')?'_blank':undefined} rel={source.url.startsWith('https:')?'noopener noreferrer':undefined}>{source.title}{source.url.startsWith('https:')?' ↗':''}</a></li>)}</ul></section><a href={article.href} class="button button-primary">{article.cta}</a></div></div></div></article><section class="section section-soft"><div class="container"><div class="section-intro"><h2>Keep exploring.</h2></div><div class="values-grid">{related.map(a=><article class="value"><p class="article-meta">{a.category}</p><h3><a href={`/news/${a.slug}`}>{a.title}</a></h3><p>{a.description}</p><a class="text-link" href={`/news/${a.slug}`}>Read this guide</a></article>)}</div></div></section></Layout>
+<Layout
+  title={`${article.title} | Saumya Tours`}
+  description={article.description}
+  ogType="article"
+  image={article.image || '/images/og-cover.jpg'}
+  imageAlt={article.title}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Travel guides', href: '/news' },
+    { name: article.title, href: `/news/${article.slug}` },
+  ]}
+  schema={articleSchema}
+>
+  <article>
+    <header class="page-hero">
+      <div class="container">
+        <p class="breadcrumb">
+          <a href="/">Home</a> / <a href="/news">Travel guides</a> / {article.category}
+        </p>
+        <h1>{article.title}</h1>
+        <p>{article.description}</p>
+        <p class="article-meta">
+          Saumya Tours editorial team / <time datetime="2026-11-16">16 November 2026</time> / {article.readTime}
+        </p>
+      </div>
+    </header>
+
+    <div class="section">
+      <div class="container article-layout">
+        <nav aria-label="In this guide">
+          <h2>In this guide</h2>
+          {article.sections.map((s, i) => (
+            <a href={`#section-${i}`}>{s.heading}</a>
+          ))}
+          <a href="#guide-checklist">Your planning checklist</a>
+          <a href="#guide-sources">Sources &amp; current information</a>
+        </nav>
+
+        <div class="prose-page">
+          {article.sections.map((s, i) => (
+            <section id={`section-${i}`}>
+              <h2>{s.heading}</h2>
+              <p>{s.text}</p>
+            </section>
+          ))}
+
+          {article.checklist && (
+            <section id="guide-checklist" class="article-checklist">
+              <h2>Your planning checklist</h2>
+              <p>Tick these off as you prepare. Your selections stay on this page only.</p>
+              {article.checklist.map((item, i) => (
+                <label for={`check-${i}`}>
+                  <input type="checkbox" id={`check-${i}`} />
+                  <span>{item}</span>
+                </label>
+              ))}
+            </section>
+          )}
+
+          <section id="guide-sources" class="article-sources">
+            <h2>Sources &amp; current information</h2>
+            <p>
+              Destination facts are informed by the sources below; trip-planning suggestions are our editorial advice. Check the official provider for current access, schedules, prices, and visitor requirements before travel.
+            </p>
+            <ul>
+              {article.sources?.map((source) => (
+                <li>
+                  <a
+                    href={source.url}
+                    target={source.url.startsWith('https:') ? '_blank' : undefined}
+                    rel={source.url.startsWith('https:') ? 'noopener noreferrer' : undefined}
+                  >
+                    {source.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <a href={article.href} class="button button-primary">{article.cta}</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <section class="section section-stone">
+    <div class="container">
+      <div class="section-intro">
+        <h2>Related guides</h2>
+      </div>
+      <div class="values-grid">
+        {related.map((a) => (
+          <article class="value">
+            <p class="article-meta" style="margin-top: 0; margin-bottom: 8px;">{a.category}</p>
+            <h3>
+              <a href={`/news/${a.slug}`}>{a.title}</a>
+            </h3>
+            <p>{a.description}</p>
+            <a class="text-link" href={`/news/${a.slug}`}>Read this guide</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

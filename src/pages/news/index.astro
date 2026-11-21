@@ -1,6 +1,89 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { articles } from '../../lib/journal';
-const categories=[...new Set(articles.map(a=>a.category))];
+
+const categories = [...new Set(articles.map((a) => a.category))];
+
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Saumya Tours Sri Lanka & Dambadiva Travel Guides',
+  description: 'Twelve sourced practical guides covering local vehicle hires, Sri Lanka destinations, and Dambadiva pilgrimage planning.',
+};
 ---
-<Layout title="12 Sri Lanka travel guides, local hire tips & Dambadiva planning | Saumya Tours" description="Read 12 practical guides to Sri Lanka travel, Pita Kotte hires, airport transfers, local guides, Sigiriya, Kandy, Galle, Ella, Yala, and Dambadiva pilgrimages."><section class="page-hero"><div class="container"><p class="breadcrumb"><a href="/">Home</a> / Travel notes</p><h1>A little knowledge<br />for the road.</h1><p>Twelve practical guides for local journeys, Sri Lanka discoveries, and your Dambadiva pilgrimage. Destination background, useful checklists, and official sources to help you plan.</p><div class="guide-search"><label for="guide-search">Find a guide<input id="guide-search" type="search" placeholder="Try airport, Kotte, Yala, or pilgrimage" /></label><label for="guide-category">Choose a topic<select id="guide-category"><option value="all">All topics</option>{categories.map(c=><option value={c}>{c}</option>)}</select></label></div></div></section><section class="section"><div class="container"><p id="guide-count" class="results-count" role="status" aria-live="polite">{articles.length} guides to explore</p><div class="journal-grid">{articles.map(a=><article class="journal-card" data-guide-card data-guide-category={a.category} data-guide-search={`${a.title} ${a.description} ${a.category}`.toLowerCase()}><a href={`/news/${a.slug}`} aria-label={`Read ${a.title}`}>{a.image?<img src={a.image} alt="" width="800" height="500" loading="lazy" />:<div class="guide-cover" aria-hidden="true"><span>{a.category}</span><strong>{a.coverLabel || a.title}</strong><span>Saumya travel guides</span></div>}</a><div><p class="article-meta">{a.category} / {a.readTime}</p><h2><a href={`/news/${a.slug}`}>{a.title}</a></h2><p>{a.description}</p><a href={`/news/${a.slug}`} class="text-link">Read the guide</a></div></article>)}</div><div id="guide-empty" class="empty-state" hidden><h2>Try a different search.</h2><p>Search by a place or topic, or choose All topics to see the full library.</p><button id="guide-reset" class="button button-primary">Show all guides</button></div></div></section></Layout>
+<Layout
+  title="Sri Lanka Travel Guides & Local Hire Tips | Saumya Tours"
+  description="Read 12 practical guides to Sri Lanka travel, Pita Kotte hires, airport transfers, local guides, Sigiriya, Kandy, Galle, Ella, Yala, and Dambadiva pilgrimages."
+  breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Travel guides', href: '/news' }]}
+  schema={listSchema}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / Travel guides</p>
+      <h1>Practical guides for the road.</h1>
+      <p>
+        Twelve planning guides for local hires around Pita Kotte, Sri Lanka destinations, and Dambadiva pilgrimages — with checklists and links to official visitor sources.
+      </p>
+      <div class="guide-search">
+        <label for="guide-search">
+          Find a guide
+          <input id="guide-search" type="search" placeholder="Try airport, Kotte, Yala, or pilgrimage" />
+        </label>
+        <label for="guide-category">
+          Choose a topic
+          <select id="guide-category">
+            <option value="all">All topics</option>
+            {categories.map((c) => (
+              <option value={c}>{c}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p id="guide-count" class="results-count" role="status" aria-live="polite">
+        {articles.length} guides to explore
+      </p>
+      <div class="journal-grid">
+        {articles.map((a) => (
+          <article
+            class="journal-card"
+            data-guide-card
+            data-guide-category={a.category}
+            data-guide-search={`${a.title} ${a.description} ${a.category}`.toLowerCase()}
+          >
+            <a href={`/news/${a.slug}`} aria-label={`Read ${a.title}`}>
+              {a.image ? (
+                <img src={a.image} alt="" width="800" height="500" loading="lazy" />
+              ) : (
+                <div class="guide-cover" aria-hidden="true">
+                  <span>{a.category}</span>
+                  <strong>{a.coverLabel || a.title}</strong>
+                  <span>Saumya travel guides</span>
+                </div>
+              )}
+            </a>
+            <div>
+              <p class="article-meta">
+                {a.category} / {a.readTime}
+              </p>
+              <h2>
+                <a href={`/news/${a.slug}`}>{a.title}</a>
+              </h2>
+              <p>{a.description}</p>
+              <a href={`/news/${a.slug}`} class="text-link">Read the guide</a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div id="guide-empty" class="empty-state" hidden>
+        <h2>No matching guides found.</h2>
+        <p>Try another place or topic, or reset to view all twelve planning guides.</p>
+        <button id="guide-reset" class="button button-primary">Show all guides</button>
+      </div>
+    </div>
+  </section>
+</Layout>

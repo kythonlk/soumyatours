@@ -1,9 +1,15 @@
 Destination imagery
 - sigiriya.webp: crop of the project's existing hero-banner.jpg supplied with the website.
+- og-cover.jpg: 1200x630 Open Graph social preview cropped and optimized from sigiriya.webp.
 - dambadiva.webp: optimized version of the project's existing dambadiva.jpg.
 - yala.webp: Pexels photo 17281958, Elephant on Green Savanna, Yala National Park, Sri Lanka.
   Source: https://www.pexels.com/photo/elephant-on-green-savanna-17281958/
   License: https://www.pexels.com/license/
+
 Brand assets
-- saumya-logo-v2.png: web-sized crop of new-logo.png supplied by the owner.
-- favicon-v2.png and apple-touch-icon-v2.png: web-sized versions of new-fav.png supplied by the owner.
+- saumya-logo-v2.png: web-sized crop of owner-supplied logo.
+- favicon-v2.png, favicon.ico, and apple-touch-icon-v2.png: web-sized icons generated from owner-supplied mark.
+
+Fleet imagery (representative)
+- fleet-nissan-caravan.webp: representative Nissan Caravan van photo generated for fleet preview.
+- fleet-amg-c-class.webp: representative Mercedes-Benz AMG C-Class sedan photo generated for fleet preview.

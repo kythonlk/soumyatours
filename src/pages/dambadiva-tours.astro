@@ -1,13 +1,122 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TourCard from '../components/TourCard.astro';
-import { getCatalog } from '../lib/catalog';
-const tours = (await getCatalog()).filter(t => t.category_slug === 'dambadiva-pilgrimages');
-const places = [{name:'Lumbini',place:'Nepal',text:'Visit the birthplace of Siddhartha Gautama and the Maya Devi Temple.'},{name:'Bodh Gaya',place:'India',text:'Spend time at the Mahabodhi Temple and the sacred Bodhi Tree.'},{name:'Sarnath',place:'India',text:'Reflect at the site associated with the Buddha’s first teaching.'},{name:'Kushinagar',place:'India',text:'Pay respects at the Parinirvana Temple and surrounding sacred sites.'}];
+import { getCatalog, plainText } from '../lib/catalog';
+
+const tours = (await getCatalog()).filter((t) => t.category_slug === 'dambadiva-pilgrimages');
+const places = [
+  { name: 'Lumbini', place: 'Nepal', text: 'Visit the birthplace of Siddhartha Gautama and the Maya Devi Temple.' },
+  { name: 'Bodh Gaya', place: 'India', text: 'Spend time at the Mahabodhi Temple and the sacred Bodhi Tree.' },
+  { name: 'Sarnath', place: 'India', text: 'Reflect at the site associated with the Buddha’s first teaching.' },
+  { name: 'Kushinagar', place: 'India', text: 'Pay respects at the Parinirvana Temple and surrounding sacred sites.' },
+];
 ---
-<Layout title="Dambadiva pilgrimages to India & Nepal | Saumya Tours" description="Explore Buddhist pilgrimage itineraries from Sri Lanka to Bodh Gaya, Sarnath, Kushinagar, and Lumbini. Plan your Dambadiva journey with Saumya Tours.">
-  <section class="image-hero"><img src="/images/dambadiva.webp" alt="Mahabodhi Temple and Buddhist pilgrimage landmarks" width="1400" height="900" fetchpriority="high" /><div class="container"><p class="breadcrumb"><a href="/">Home</a> / Dambadiva</p><h1>Make space for<br />a sacred journey.</h1><p>Follow the Buddhist circuit through India and Nepal. A pilgrimage for reflection, devotion, and the people you share it with.</p><div class="hero-actions"><a href="#pilgrimages" class="button button-light">Explore the pilgrimages</a></div></div></section>
-  <section class="section"><div class="container"><div class="section-intro"><h2>Four places.<br />A lifetime of meaning.</h2><p>The sacred Buddhist circuit connects the Buddha’s birthplace, enlightenment, first teaching, and passing into Parinirvana.</p></div><div class="sacred-sites">{places.map(place => <div class="value"><p class="place-country">{place.place}</p><h3>{place.name}</h3><p>{place.text}</p></div>)}</div></div></section>
-  <section class="section section-soft" id="pilgrimages"><div class="container"><div class="section-head"><div><h2>Find your pilgrimage.</h2><p>Compare the routes, then ask our team about departure dates and arrangements for your group.</p></div></div><div class="tour-grid">{tours.map(tour => <TourCard tour={tour} />)}</div>{!tours.length && <div class="empty-state"><p>Contact our team for current pilgrimage options.</p><button class="button button-primary" data-inquire="Dambadiva pilgrimage">Ask about a pilgrimage</button></div>}</div></section>
-  <section class="section"><div class="container"><div class="section-intro"><h2>Plan with peace of mind.</h2><p>Every traveler has different needs. Please discuss yours with us before confirming a booking.</p></div><div class="values-grid"><div class="value"><h3>Guidance & worship</h3><p>Ask about the tour leader, languages spoken, temple visits, and time for worship on your chosen departure.</p></div><div class="value"><h3>Comfort & care</h3><p>Let us know about mobility, dietary, or medical requirements so we can discuss suitable arrangements.</p></div><div class="value"><h3>Travel documents</h3><p>Confirm the passport, visa, and entry requirements for each country on your route before making travel commitments.</p></div></div></div></section>
+<Layout
+  title="Dambadiva Pilgrimages to India & Nepal | Saumya Tours"
+  description="Explore Buddhist pilgrimage itineraries from Sri Lanka to Bodh Gaya, Sarnath, Kushinagar, and Lumbini. Plan your Dambadiva journey with Saumya Tours."
+  image="/images/dambadiva.webp"
+  imageAlt="Pilgrims offering oil lamps at the Mahabodhi Temple in Bodh Gaya"
+  breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Dambadiva pilgrimages', href: '/dambadiva-tours' }]}
+>
+  <section class="image-hero">
+    <img src="/images/dambadiva.webp" alt="Mahabodhi Temple and Buddhist pilgrimage landmarks" width="1400" height="900" fetchpriority="high" />
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / Dambadiva</p>
+      <h1>Make space for a sacred journey.</h1>
+      <p>Follow the Buddhist circuit through India and Nepal — planned with time for reflection, worship, and the family members sharing it with you.</p>
+      <div class="hero-actions">
+        <a href="#pilgrimages" class="button button-gold">Explore the pilgrimages</a>
+        <a href="/news/dambadiva-pilgrimage-planning-checklist" class="text-link text-link-on-dark">Pilgrimage checklist</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-intro">
+        <h2>Four sacred sites across India and Nepal.</h2>
+        <p>The core Buddhist circuit connects the Buddha’s birthplace, enlightenment, first teaching, and passing into Parinirvana.</p>
+      </div>
+      <div class="sacred-sites">
+        {places.map((place) => (
+          <div class="value">
+            <p class="place-country">{place.place}</p>
+            <h3>{place.name}</h3>
+            <p>{place.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-stone" id="pilgrimages">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Published pilgrimage itineraries.</h2>
+          <p>Review the day-by-day route, then contact our team for current departure dates and arrangements for your family or group.</p>
+        </div>
+      </div>
+
+      {tours.length === 1 ? (
+        <article class="tour-spotlight" style="background: var(--canvas); margin-bottom: 0;">
+          <a href={`/tour/${tours[0].slug}`} class="tour-spotlight-media" aria-label={`Explore ${tours[0].title}`}>
+            <img src={tours[0].images[0].url} alt={tours[0].images[0].alt_text || tours[0].title} width="900" height="640" loading="lazy" />
+            <span class="tour-destination">India &amp; Nepal</span>
+          </a>
+          <div class="tour-spotlight-body">
+            <div class="tour-meta">
+              <span>{tours[0].duration_days} days / {Math.max(0, tours[0].duration_days - 1)} nights</span>
+              <span>{tours[0].category_name || 'Dambadiva pilgrimage'}</span>
+            </div>
+            <h3><a href={`/tour/${tours[0].slug}`}>{tours[0].title}</a></h3>
+            <p>{plainText(tours[0].short_description)}</p>
+            <div class="tour-spotlight-actions">
+              <div>
+                <span class="price-label">From, per person</span>
+                <strong class="tour-price">
+                  {tours[0].price > 0 ? `LKR ${tours[0].price.toLocaleString('en-LK')}` : 'Request a quote'}
+                </strong>
+              </div>
+              <a href={`/tour/${tours[0].slug}`} class="button button-primary">View journey</a>
+            </div>
+          </div>
+        </article>
+      ) : tours.length > 1 ? (
+        <div class="tour-grid">
+          {tours.map((tour) => (
+            <TourCard tour={tour} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <p>Contact our team for current pilgrimage departure dates and routes.</p>
+          <button class="button button-primary" data-inquire="Dambadiva pilgrimage">Ask about a pilgrimage</button>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-intro">
+        <h2>Plan with peace of mind.</h2>
+        <p>Every family travels differently. Talk through these essentials with our team before confirming a departure.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value">
+          <h3>Guidance &amp; worship</h3>
+          <p>Ask about the tour leader, languages spoken, temple visits, and dedicated time for worship on your chosen departure.</p>
+        </div>
+        <div class="value">
+          <h3>Comfort &amp; care</h3>
+          <p>Share mobility, dietary, or medical considerations early so we can discuss realistic hotel, transport, and site access arrangements.</p>
+        </div>
+        <div class="value">
+          <h3>Travel documents</h3>
+          <p>Confirm passport validity, Indian and Nepali visa rules, and current entry requirements through official authorities before booking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>

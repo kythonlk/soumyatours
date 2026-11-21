@@ -1,9 +1,81 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Our story & approach | Saumya Tours" description="Get to know Saumya Tours, a Sri Lanka travel team helping plan island holidays and Buddhist pilgrimages through India and Nepal.">
-  <section class="page-hero"><div class="container"><p class="breadcrumb"><a href="/">Home</a> / Our story</p><h1>Close to home.<br />Open to the world.</h1><p>We bring a Sri Lankan sense of hospitality to island holidays and journeys of faith.</p></div></section>
-  <section class="section"><div class="container story-split"><div class="story-image"><img src="/images/dambadiva.webp" alt="Sacred Buddhist architecture on the India pilgrimage circuit" width="900" height="720" loading="lazy" /></div><div class="story-copy"><h2>Different journeys.<br />The same care.</h2><p>Saumya Tours helps travelers explore Sri Lanka and visit the sacred Buddhist sites of India and Nepal. We believe the practical details matter as much as the destination.</p><p>That means understanding who is traveling, choosing a comfortable pace, and making room for what matters to you—whether it’s a temple visit, time with family, or a day in the hills.</p><p>Before you book, we’ll work through your route and requirements so you can make an informed choice.</p><div class="story-signature">The Saumya Tours team</div></div></div></section>
-  <section class="section section-soft"><div class="container"><div class="section-intro"><h2>What thoughtful travel looks like.</h2></div><div class="values-grid"><div class="value"><h3>Listening first</h3><p>Your interests, budget, and comfort shape the conversation. Tell us what you want your trip to feel like.</p></div><div class="value"><h3>Practical guidance</h3><p>We’ll help you consider routes, transport, accommodation, and the support you need along the way.</p></div><div class="value"><h3>Respect for place</h3><p>We encourage care for local communities, sacred spaces, wildlife, and the landscapes we visit.</p></div></div></div></section>
-  <section class="section"><div class="container"><div class="section-intro"><h2>A route for your reason to travel.</h2><p>Explore our published itineraries, or talk to us about a journey shaped around your group.</p></div><div class="values-grid"><div class="value"><h3>Sri Lanka</h3><p>Culture, hill country, coast, and wildlife—with time to enjoy the island.</p><a href="/tours?category=sri-lanka-tours" class="text-link">View island journeys</a></div><div class="value"><h3>Dambadiva</h3><p>Sacred Buddhist sites across India and Nepal, planned with reflection in mind.</p><a href="/dambadiva-tours" class="text-link">Explore pilgrimages</a></div><div class="value"><h3>Your own journey</h3><p>A family visit, a private group, or a particular place you’ve always wanted to see.</p><a href="/contact" class="text-link">Talk to our team</a></div></div></div></section>
+<Layout
+  title="About Saumya Tours | Pita Kotte, Sri Lanka"
+  description="Meet Saumya Tours in Pita Kotte, Sri Lanka — direct local vehicle hires, Sri Lanka guided journeys, and Dambadiva Buddhist pilgrimages."
+  breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'About', href: '/about' }]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / About</p>
+      <h1>Based in Pita Kotte. Built around real conversations.</h1>
+      <p>We arrange local vehicle hires, Sri Lanka island journeys, and Buddhist pilgrimages across India and Nepal with clear written details upfront.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container story-split">
+      <div class="story-image">
+        <img src="/images/dambadiva.webp" alt="Pilgrims gathered in devotion at the Mahabodhi Temple" width="900" height="720" loading="lazy" />
+      </div>
+      <div class="story-copy">
+        <h2>Different journeys, the same practical care.</h2>
+        <p>
+          Whether you are booking a Nissan Caravan for an early airport run, requesting our Mercedes-Benz AMG C-Class for a family wedding, or planning a Dambadiva pilgrimage with elderly parents, the practical details decide how comfortable the journey feels.
+        </p>
+        <p>
+          We listen to who is traveling, talk through walking distances, luggage, vehicle setup, and rest stops, and put your route and quote in writing before you make a commitment.
+        </p>
+        <div class="story-signature">The Saumya Tours team</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-stone">
+    <div class="container">
+      <div class="section-intro">
+        <h2>How we work</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value">
+          <h3>Listening first</h3>
+          <p>Your route, group size, budget, and comfort shape the recommendation before any quote is prepared.</p>
+        </div>
+        <div class="value">
+          <h3>Written quotes</h3>
+          <p>Every arrangement clarifies vehicle, stops, inclusions, waiting terms, and cancellation policies upfront.</p>
+        </div>
+        <div class="value">
+          <h3>Respect for place</h3>
+          <p>We plan thoughtfully around sacred temple protocols, wildlife park rules, and local communities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-intro">
+        <h2>Where to start</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value">
+          <h3>Local vehicle hire</h3>
+          <p>Request our Nissan Caravan or Mercedes-Benz AMG C-Class for transfers, outings, or events from Pita Kotte.</p>
+          <a href="/local-hires" class="text-link">Plan a local hire</a>
+        </div>
+        <div class="value">
+          <h3>Sri Lanka journeys</h3>
+          <p>Culture, hill country, coast, and wildlife routes shaped around your group’s pace.</p>
+          <a href="/tours?category=sri-lanka-tours" class="text-link">View island journeys</a>
+        </div>
+        <div class="value">
+          <h3>Dambadiva pilgrimages</h3>
+          <p>Sacred Buddhist sites across India and Nepal, planned with time for reflection and worship.</p>
+          <a href="/dambadiva-tours" class="text-link">Explore pilgrimages</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
